@@ -1,28 +1,6 @@
-// ===== NAVIGATION =====
-function navigateTo(page) {
-  // Hide all pages
-  document.querySelectorAll('.page-section').forEach(p => p.classList.remove('active'));
-  // Show target
-  document.getElementById('page-' + page).classList.add('active');
-  // Update sidebar
-  document.querySelectorAll('.sidebar-nav a').forEach(a => a.classList.remove('active'));
-  document.querySelector('[data-page="'+page+'"]').classList.add('active');
-  // Update header
-  const titles = {
-    dashboard: 'Painel de Controle',
-    produtos: 'Produtos / Entregaveis',
-    governanca: 'Governanca e Reunioes',
-    equipe: 'Equipe e Mobilizacao',
-    medicao: 'Medicao e Pagamento',
-    imr: 'IMR - Desempenho',
-    documentos: 'Documentos e Malha Rodoviaria',
-    relatorio: 'Relatorio de Atendimento'
-  };
-  document.getElementById('page-title').textContent = titles[page] || page;
-  document.getElementById('breadcrumb').innerHTML = 'SGO &rsaquo; <span>' + (titles[page] || page) + '</span>';
-  // Close sidebar on mobile
-  document.getElementById('sidebar').classList.remove('open');
-}
+// ===== NAVIGATION (Multi-page app - links use href) =====
+// Navigation now handled by href attributes in HTML links
+// App structure is multi-page (each feature is a separate HTML file)
 
 // ===== TABS =====
 function switchTab(tabGroupId, targetId, event) {
@@ -99,6 +77,15 @@ document.addEventListener('DOMContentLoaded', function() {
   document.addEventListener('click', function(e) {
     if (!e.target.closest('.btn-icon') && !e.target.closest('.notif-panel')) {
       document.getElementById('notifPanel').classList.remove('show');
+    }
+  });
+
+  // Auto-highlight current page in sidebar navigation
+  const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.sidebar-nav a[href]').forEach(link => {
+    link.classList.remove('active');
+    if (link.getAttribute('href') === currentPage) {
+      link.classList.add('active');
     }
   });
 

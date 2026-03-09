@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Medição - SGO</title>
+  <link rel="stylesheet" href="/src/css/styles.css">
+</head>
+<body>
+<div class="app">
+  <!-- ===== SIDEBAR ===== -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="logo">SGO</div>
+      <h1>Gestao de Obras<small>Sistema de Gestao de Contrato</small></h1>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-section">
+        <div class="nav-section-title">Principal</div>
+        <a data-page="dashboard" href="index.html">
+          <span class="icon">&#9632;</span> Painel de Controle
+        </a>
+        <a data-page="produtos" href="produtos.html">
+          <span class="icon">&#9776;</span> Produtos / Entregaveis
+          <span class="badge">12</span>
+        </a>
+      </div>
+        <div class="nav-section-title">Gestao</div>
+      <div class="nav-section">
+        <a data-page="governanca" href="governanca.html">
+          <span class="icon">&#128197;</span> Governanca e Reunioes
+        </a>
+        <a data-page="equipe" href="equipe.html">
+          <span class="icon">&#128101;</span> Equipe e Mobilizacao
+        </a>
+        <a class="active" data-page="medicao" href="medicao.html">
+          <span class="icon">&#128178;</span> Medicao e Pagamento
+        </a>
+      </div>
+      <div class="nav-section">
+        <div class="nav-section-title">Qualidade</div>
+        <a data-page="imr" href="imr.html">
+          <span class="icon">&#9733;</span> IMR - Desempenho
+          <span class="badge">85</span>
+        </a>
+      </div>
+      <div class="nav-section">
+        <div class="nav-section-title">Documentos</div>
+        <a data-page="documentos" href="documentos.html">
+          <span class="icon">&#128452;</span> Documentos e Malha
+        </a>
+        <a data-page="relatorio" href="relatorio.html">
+          <span class="icon">&#128196;</span> Relatorio de Atendimento
+        </a>
+      </div>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="user-info">
+        <div class="avatar">JC</div>
+        <div>
+          <div style="font-weight:600;color:var(--gray-300);font-size:13px">Joao Carlos</div>
+          <div style="font-size:11px">Gerente de Contrato</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ===== MAIN ===== -->
+  <div class="main">
+    <header class="header">
+      <div class="header-left">
+        <button class="menu-toggle" onclick="toggleSidebar()">&#9776;</button>
+        <div>
+          <h2 id="page-title">Medicao e Pagamento</h2>
+          <div class="breadcrumb" id="breadcrumb">
+            SGO &rsaquo; <span>Medicao e Pagamento</span>
+          </div>
+        </div>
+      </div>
+      <div class="header-right">
+        <div style="position:relative">
+          <button class="btn-icon" onclick="toggleNotif()">&#128276;</button>
+          <div class="notif-panel" id="notifPanel">
+            <div class="notif-header">Notificacoes</div>
+            <div class="notif-item">
+              <div><strong>Medicao</strong> - Checklist pendente para Mar/2026</div>
+              <div class="notif-time">07/03/2026</div>
+            </div>
+          </div>
+        </div>
+        <button class="btn-icon">&#9881;</button>
+      </div>
+    </header>
+
+    <div class="content">
+      <div class="tabs" id="tabsMedicao">
+        <div class="tab active" onclick="switchTab('tabsMedicao','tabMedicaoCalc')">Calculo de Medicao</div>
+        <div class="tab" onclick="switchTab('tabsMedicao','tabMedicaoChecklist')">Checklist Documentos</div>
+        <div class="tab" onclick="switchTab('tabsMedicao','tabMedicaoHistorico')">Historico de Medicoes</div>
+      </div>
+
+      <!-- Tab: Calculo -->
+      <div class="tab-content active" id="tabMedicaoCalc">
+        <div class="alert alert-info mb-20">
+          &#9432; <div>O calculo de medicao segue a formula do TR: <strong>Vm = Pu x Qc</strong> (Valor da Medicao = Preco Unitario x Quantidade de Contratos vigentes). Preencha os valores abaixo para simular.</div>
+        </div>
+
+        <div class="grid-2 mb-24">
+          <div class="card">
+            <div class="card-header"><h3>Simulador de Medicao - Produto 02</h3></div>
+            <div class="card-body">
+              <div class="form-group">
+                <label>Produto</label>
+                <select class="form-control" id="calcProduto">
+                  <option>P02 - Apoio ao Planejamento</option>
+                  <option>P03 - Gestao de Infraestrutura</option>
+                  <option>P04 - Apoio a Fiscalizacao</option>
+                </select>
+              </div>
+              <div class="grid-2">
+                <div class="form-group">
+                  <label>Preco Unitario (Pu) - R$</label>
+                  <input type="number" class="form-control" id="calcPu" value="4500" onkeyup="calcMedicao()">
+                </div>
+                <div class="form-group">
+                  <label>Qtd. Contratos Vigentes (Qc)</label>
+                  <input type="number" class="form-control" id="calcQc" value="12" onkeyup="calcMedicao()">
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Fator de Ajuste IMR (%)</label>
+                <input type="number" class="form-control" id="calcImr" value="100" onkeyup="calcMedicao()">
+              </div>
+              <button class="btn btn-primary w-full" onclick="calcMedicao()">Calcular Medicao</button>
+              <div style="margin-top:16px;padding:16px;background:var(--gray-50);border-radius:var(--radius);text-align:center">
+                <div class="text-sm text-muted">Valor da Medicao (Vm)</div>
+                <div style="font-size:28px;font-weight:700;color:var(--primary)" id="calcResult">R$ 54.000,00</div>
+                <div class="text-xs text-muted mt-16">Vm = R$ 4.500 x 12 contratos x 100%</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header"><h3>Resumo Mensal - Marco/2026</h3></div>
+            <div class="card-body" style="padding:0">
+              <table>
+                <thead><tr><th>Produto</th><th>Vm Base</th><th>Ajuste IMR</th><th>Valor Final</th></tr></thead>
+                <tbody>
+                  <tr><td>P01 - Relatorio Mensal</td><td>R$ 32.000</td><td>100%</td><td><strong>R$ 32.000</strong></td></tr>
+                  <tr><td>P02 - Apoio Planejamento</td><td>R$ 54.000</td><td>85%</td><td><strong>R$ 45.900</strong></td></tr>
+                  <tr><td>P03 - Gestao Infraestrutura</td><td>R$ 48.500</td><td>100%</td><td><strong>R$ 48.500</strong></td></tr>
+                  <tr><td>P04 - Apoio Fiscalizacao</td><td>R$ 38.000</td><td>100%</td><td><strong>R$ 38.000</strong></td></tr>
+                  <tr><td>P05 - Controle Qualidade</td><td>R$ 28.000</td><td>92%</td><td><strong>R$ 25.760</strong></td></tr>
+                  <tr style="background:var(--gray-50);font-weight:700">
+                    <td>TOTAL</td><td>R$ 200.500</td><td>--</td><td style="color:var(--primary);font-size:16px">R$ 190.160</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab: Checklist -->
+      <div class="tab-content" id="tabMedicaoChecklist">
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-header"><h3>Checklist - Medicao Marco/2026</h3></div>
+            <div class="card-body">
+              <div class="checklist-item checked"><input type="checkbox" checked><span>Declaracao de Responsabilidade Tecnica</span></div>
+              <div class="checklist-item checked"><input type="checkbox" checked><span>Relatorio de Atividades do Periodo</span></div>
+              <div class="checklist-item checked"><input type="checkbox" checked><span>Planilha de Medicao Preenchida</span></div>
+              <div class="checklist-item"><input type="checkbox"><span>Notas Fiscais de Despesas Reembolsaveis</span></div>
+              <div class="checklist-item"><input type="checkbox"><span>Comprovantes de Pagamento de Equipe</span></div>
+              <div class="checklist-item"><input type="checkbox"><span>Relatorio de IMR Assinado</span></div>
+            </div>
+            <div class="card-footer">
+              <div class="flex-between">
+                <span class="text-sm"><strong>3 de 6</strong> documentos concluidos</span>
+                <div class="progress" style="width:120px"><div class="progress-bar orange" style="width:50%"></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab: Historico -->
+      <div class="tab-content" id="tabMedicaoHistorico">
+        <div class="card">
+          <div class="card-header"><h3>Historico de Medicoes</h3></div>
+          <div class="card-body" style="padding:0">
+            <table>
+              <thead>
+                <tr><th>Periodo</th><th>Valor Bruto</th><th>Ajuste IMR</th><th>Valor Liquido</th><th>Status</th><th>Data Pagamento</th><th>Acoes</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Marco/2026</strong></td><td>R$ 200.500</td><td>-R$ 10.340</td><td><strong>R$ 190.160</strong></td>
+                  <td><span class="badge badge-warning">Em Processamento</span></td><td>--</td>
+                  <td><button class="btn btn-sm btn-primary">Detalhes</button></td>
+                </tr>
+                <tr>
+                  <td>Fevereiro/2026</td><td>R$ 198.200</td><td>-R$ 5.946</td><td><strong>R$ 192.254</strong></td>
+                  <td><span class="badge badge-success">Pago</span></td><td>28/02/2026</td>
+                  <td><button class="btn btn-sm btn-secondary">Ver</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div><!-- /content -->
+  </div><!-- /main -->
+</div><!-- /app -->
+
+<!-- ===== JAVASCRIPT ===== -->
+<script src="/src/js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Documentos - SGO</title>
+  <link rel="stylesheet" href="/src/css/styles.css">
+</head>
+<body>
+<div class="app">
+  <!-- ===== SIDEBAR ===== -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="logo">SGO</div>
+      <h1>Gestao de Obras<small>Sistema de Gestao de Contrato</small></h1>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-section">
+        <div class="nav-section-title">Principal</div>
+        <a data-page="dashboard" href="index.html">
+          <span class="icon">&#9632;</span> Painel de Controle
+        </a>
+        <a data-page="produtos" href="produtos.html">
+          <span class="icon">&#9776;</span> Produtos / Entregaveis
+          <span class="badge">12</span>
+        </a>
+      </div>
+        <div class="nav-section-title">Gestao</div>
+      <div class="nav-section">
+        <a data-page="governanca" href="governanca.html">
+          <span class="icon">&#128197;</span> Governanca e Reunioes
+        </a>
+        <a data-page="equipe" href="equipe.html">
+          <span class="icon">&#128101;</span> Equipe e Mobilizacao
+        </a>
+        <a data-page="medicao" href="medicao.html">
+          <span class="icon">&#128178;</span> Medicao e Pagamento
+        </a>
+      </div>
+      <div class="nav-section">
+        <div class="nav-section-title">Qualidade</div>
+        <a data-page="imr" href="imr.html">
+          <span class="icon">&#9733;</span> IMR - Desempenho
+          <span class="badge">85</span>
+        </a>
+      </div>
+      <div class="nav-section">
+        <div class="nav-section-title">Documentos</div>
+        <a class="active" data-page="documentos" href="documentos.html">
+          <span class="icon">&#128452;</span> Documentos e Malha
+        </a>
+        <a data-page="relatorio" href="relatorio.html">
+          <span class="icon">&#128196;</span> Relatorio de Atendimento
+        </a>
+      </div>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="user-info">
+        <div class="avatar">JC</div>
+        <div>
+          <div style="font-weight:600;color:var(--gray-300);font-size:13px">Joao Carlos</div>
+          <div style="font-size:11px">Gerente de Contrato</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ===== MAIN ===== -->
+  <div class="main">
+    <header class="header">
+      <div class="header-left">
+        <button class="menu-toggle" onclick="toggleSidebar()">&#9776;</button>
+        <div>
+          <h2 id="page-title">Documentos e Malha Rodoviaria</h2>
+          <div class="breadcrumb" id="breadcrumb">
+            SGO &rsaquo; <span>Documentos e Malha Rodoviaria</span>
+          </div>
+        </div>
+      </div>
+      <div class="header-right">
+        <div style="position:relative">
+          <button class="btn-icon" onclick="toggleNotif()">&#128276;</button>
+          <div class="notif-panel" id="notifPanel">
+            <div class="notif-header">Notificacoes</div>
+            <div class="notif-item">
+              <div><strong>Documentos</strong> - Novo arquivo enviado</div>
+              <div class="notif-time">Hoje, 09:15</div>
+            </div>
+          </div>
+        </div>
+        <button class="btn-icon">&#9881;</button>
+      </div>
+    </header>
+
+    <div class="content">
+      <div class="tabs" id="tabsDocs">
+        <div class="tab active" onclick="switchTab('tabsDocs','tabDocsRepo')">Repositorio de Documentos</div>
+        <div class="tab" onclick="switchTab('tabsDocs','tabDocsMalha')">Malha Rodoviaria</div>
+        <div class="tab" onclick="switchTab('tabsDocs','tabDocsSEI')">Integracao SEI</div>
+      </div>
+
+      <!-- Tab: Repositorio -->
+      <div class="tab-content active" id="tabDocsRepo">
+        <div class="flex-between mb-20">
+          <div class="flex-gap-8">
+            <input type="text" class="form-control" placeholder="Buscar documentos..." style="width:280px">
+            <select class="form-control" style="width:160px">
+              <option>Todos os Tipos</option>
+              <option>Relatorios</option>
+              <option>Oficios</option>
+              <option>Atas</option>
+            </select>
+          </div>
+          <button class="btn btn-primary">+ Upload Documento</button>
+        </div>
+
+        <div class="card">
+          <div class="card-body" style="padding:0">
+            <table>
+              <thead>
+                <tr><th>Tipo</th><th>Nome do Documento</th><th>Categoria</th><th>Data</th><th>Tamanho</th><th>Acoes</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><span style="color:#dc2626;font-weight:600">PDF</span></td>
+                  <td>Relatorio_Mensal_Fev2026.pdf</td>
+                  <td><span class="badge badge-info">Relatorio</span></td>
+                  <td>28/02/2026</td><td>4.2 MB</td>
+                  <td><button class="btn btn-sm btn-secondary">Baixar</button></td>
+                </tr>
+                <tr>
+                  <td><span style="color:var(--primary);font-weight:600">DOC</span></td>
+                  <td>Ata_Reuniao_Semanal_09.docx</td>
+                  <td><span class="badge badge-gray">Ata</span></td>
+                  <td>08/03/2026</td><td>320 KB</td>
+                  <td><button class="btn btn-sm btn-secondary">Baixar</button></td>
+                </tr>
+                <tr>
+                  <td><span style="color:#059669;font-weight:600">XLS</span></td>
+                  <td>Planilha_Medicao_Mar2026.xlsx</td>
+                  <td><span class="badge badge-warning">Medicao</span></td>
+                  <td>09/03/2026</td><td>1.8 MB</td>
+                  <td><button class="btn btn-sm btn-secondary">Baixar</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab: Malha Rodoviaria -->
+      <div class="tab-content" id="tabDocsMalha">
+        <div class="alert alert-info mb-20">
+          &#9432; <div>Base de dados da malha rodoviaria federal sob jurisdicao, incluindo segmentos, trechos e extensoes para suporte as Unidades Locais.</div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <h3>Segmentos Rodoviarios</h3>
+            <button class="btn btn-sm btn-primary">Exportar</button>
+          </div>
+          <div class="card-body" style="padding:0">
+            <table>
+              <thead>
+                <tr><th>Rodovia</th><th>Trecho</th><th>Extensao (km)</th><th>UL Responsavel</th><th>Situacao</th><th>Ultima Vistoria</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>BR-101</strong></td><td>Div. ES/BA - Itabuna</td>
+                  <td>85,3</td><td>UL Sul</td>
+                  <td><span class="badge badge-success">Regular</span></td><td>05/03/2026</td>
+                </tr>
+                <tr>
+                  <td><strong>BR-101</strong></td><td>Itabuna - Ilheus</td>
+                  <td>54,7</td><td>UL Sul</td>
+                  <td><span class="badge badge-warning">Atencao</span></td><td>02/03/2026</td>
+                </tr>
+                <tr>
+                  <td><strong>BR-316</strong></td><td>Belem - Capanema</td>
+                  <td>120,0</td><td>UL Norte</td>
+                  <td><span class="badge badge-success">Regular</span></td><td>04/03/2026</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab: SEI -->
+      <div class="tab-content" id="tabDocsSEI">
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-header"><h3>Integracao com Sistema SEI</h3></div>
+            <div class="card-body">
+              <div class="alert alert-success">&#10003; <div><strong>Conectado:</strong> Sistema SEI integrado e funcionando corretamente.</div></div>
+              <div class="form-group">
+                <label>Numero do Processo SEI</label>
+                <input type="text" class="form-control" placeholder="Ex: 50600.012345/2026-00">
+              </div>
+              <button class="btn btn-primary w-full">Buscar no SEI</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div><!-- /content -->
+  </div><!-- /main -->
+</div><!-- /app -->
+
+<!-- ===== JAVASCRIPT ===== -->
+<script src="/src/js/app.js"></script>
+</body>
+</html>

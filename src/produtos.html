@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Produtos - SGO</title>
+  <link rel="stylesheet" href="/src/css/styles.css">
+</head>
+<body>
+<div class="app">
+  <!-- ===== SIDEBAR ===== -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="logo">SGO</div>
+      <h1>Gestao de Obras<small>Sistema de Gestao de Contrato</small></h1>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-section">
+        <div class="nav-section-title">Principal</div>
+        <a data-page="dashboard" href="index.html">
+          <span class="icon">&#9632;</span> Painel de Controle
+        </a>
+        <a class="active" data-page="produtos" href="produtos.html">
+          <span class="icon">&#9776;</span> Produtos / Entregaveis
+          <span class="badge">12</span>
+        </a>
+      </div>
+        <div class="nav-section-title">Gestao</div>
+      <div class="nav-section">
+        <a data-page="governanca" href="governanca.html">
+          <span class="icon">&#128197;</span> Governanca e Reunioes
+        </a>
+        <a data-page="equipe" href="equipe.html">
+          <span class="icon">&#128101;</span> Equipe e Mobilizacao
+        </a>
+        <a data-page="medicao" href="medicao.html">
+          <span class="icon">&#128178;</span> Medicao e Pagamento
+        </a>
+      </div>
+      <div class="nav-section">
+        <div class="nav-section-title">Qualidade</div>
+        <a data-page="imr" href="imr.html">
+          <span class="icon">&#9733;</span> IMR - Desempenho
+          <span class="badge">85</span>
+        </a>
+      </div>
+      <div class="nav-section">
+        <div class="nav-section-title">Documentos</div>
+        <a data-page="documentos" href="documentos.html">
+          <span class="icon">&#128452;</span> Documentos e Malha
+        </a>
+        <a data-page="relatorio" href="relatorio.html">
+          <span class="icon">&#128196;</span> Relatorio de Atendimento
+        </a>
+      </div>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="user-info">
+        <div class="avatar">JC</div>
+        <div>
+          <div style="font-weight:600;color:var(--gray-300);font-size:13px">Joao Carlos</div>
+          <div style="font-size:11px">Gerente de Contrato</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ===== MAIN ===== -->
+  <div class="main">
+    <header class="header">
+      <div class="header-left">
+        <button class="menu-toggle" onclick="toggleSidebar()">&#9776;</button>
+        <div>
+          <h2 id="page-title">Produtos / Entregaveis</h2>
+          <div class="breadcrumb" id="breadcrumb">
+            SGO &rsaquo; <span>Produtos / Entregaveis</span>
+          </div>
+        </div>
+      </div>
+      <div class="header-right">
+        <div style="position:relative">
+          <button class="btn-icon" onclick="toggleNotif()">&#128276;</button>
+          <div class="notif-panel" id="notifPanel">
+            <div class="notif-header">Notificacoes</div>
+            <div class="notif-item">
+              <div><strong>Produto 02</strong> - Prazo de entrega em 3 dias</div>
+              <div class="notif-time">Hoje, 10:30</div>
+            </div>
+          </div>
+        </div>
+        <button class="btn-icon">&#9881;</button>
+      </div>
+    </header>
+
+    <div class="content">
+      <!-- ============================== -->
+      <!-- PAGE: PRODUTOS                 -->
+      <!-- ============================== -->
+      <div class="flex-between mb-20">
+        <div class="pill-nav">
+          <span class="pill active" onclick="filterProducts('all',this)">Todos (12)</span>
+          <span class="pill" onclick="filterProducts('mensal',this)">Mensais (01-07)</span>
+          <span class="pill" onclick="filterProducts('demanda',this)">Sob Demanda (08-12)</span>
+        </div>
+        <button class="btn btn-primary" onclick="openModal('modalNovoProduto')">+ Novo Registro</button>
+      </div>
+
+      <!-- Mensal Products -->
+      <h3 style="font-size:14px;color:var(--gray-600);margin-bottom:12px" class="prod-section-title mensal">&#128197; Produtos de Frequencia Mensal</h3>
+      <div class="grid-3 mb-24 product-list">
+        <div class="product-card mensal" data-type="mensal">
+          <div class="product-number">PRODUTO 01</div>
+          <h4>Relatorio Mensal de Atividades</h4>
+          <p>Consolidacao das atividades realizadas no periodo com descricao detalhada dos servicos.</p>
+          <div class="product-footer">
+            <span class="badge badge-success">Entregue</span>
+            <span class="text-xs text-muted">Prazo: 05/03</span>
+          </div>
+          <div style="margin-top:10px">
+            <div class="progress"><div class="progress-bar green" style="width:100%"></div></div>
+          </div>
+        </div>
+        <div class="product-card mensal" data-type="mensal">
+          <div class="product-number">PRODUTO 02</div>
+          <h4>Apoio ao Planejamento</h4>
+          <p>Suporte tecnico ao planejamento de contratos vigentes. Formula: Vm = Pu x Qc.</p>
+          <div class="product-footer">
+            <span class="badge badge-warning">Em Andamento</span>
+            <span class="text-xs text-muted">Prazo: 10/03</span>
+          </div>
+          <div style="margin-top:10px">
+            <div class="progress"><div class="progress-bar orange" style="width:65%"></div></div>
+          </div>
+        </div>
+        <div class="product-card mensal" data-type="mensal">
+          <div class="product-number">PRODUTO 03</div>
+          <h4>Gestao de Infraestrutura</h4>
+          <p>Acompanhamento da infraestrutura rodoviaria e suporte a gestao patrimonial.</p>
+          <div class="product-footer">
+            <span class="badge badge-info">Em Revisao</span>
+            <span class="text-xs text-muted">Prazo: 12/03</span>
+          </div>
+          <div style="margin-top:10px">
+            <div class="progress"><div class="progress-bar blue" style="width:80%"></div></div>
+          </div>
+        </div>
+        <div class="product-card mensal" data-type="mensal">
+          <div class="product-number">PRODUTO 04</div>
+          <h4>Apoio a Fiscalizacao</h4>
+          <p>Suporte tecnico as atividades de fiscalizacao de obras e servicos em andamento.</p>
+          <div class="product-footer">
+            <span class="badge badge-gray">Pendente</span>
+            <span class="text-xs text-muted">Prazo: 15/03</span>
+          </div>
+          <div style="margin-top:10px">
+            <div class="progress"><div class="progress-bar blue" style="width:30%"></div></div>
+          </div>
+        </div>
+        <div class="product-card mensal" data-type="mensal">
+          <div class="product-number">PRODUTO 05</div>
+          <h4>Controle de Qualidade</h4>
+          <p>Verificacao e controle de qualidade de materiais e servicos executados nas obras.</p>
+          <div class="product-footer">
+            <span class="badge badge-warning">Em Andamento</span>
+            <span class="text-xs text-muted">Prazo: 18/03</span>
+          </div>
+          <div style="margin-top:10px">
+            <div class="progress"><div class="progress-bar orange" style="width:50%"></div></div>
+          </div>
+        </div>
+        <div class="product-card mensal" data-type="mensal">
+          <div class="product-number">PRODUTO 06</div>
+          <h4>Gestao Ambiental</h4>
+          <p>Monitoramento de condicionantes ambientais e acompanhamento de licencas.</p>
+          <div class="product-footer">
+            <span class="badge badge-success">Entregue</span>
+            <span class="text-xs text-muted">Prazo: 08/03</span>
+          </div>
+          <div style="margin-top:10px">
+            <div class="progress"><div class="progress-bar green" style="width:100%"></div></div>
+          </div>
+        </div>
+        <div class="product-card mensal" data-type="mensal">
+          <div class="product-number">PRODUTO 07</div>
+          <h4>Gestao Social e Desapropriacoes</h4>
+          <p>Acompanhamento de processos sociais e desapropriacoes vinculadas as obras.</p>
+          <div class="product-footer">
+            <span class="badge badge-info">Em Revisao</span>
+            <span class="text-xs text-muted">Prazo: 20/03</span>
+          </div>
+          <div style="margin-top:10px">
+            <div class="progress"><div class="progress-bar blue" style="width:75%"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <h3 style="font-size:14px;color:var(--gray-600);margin-bottom:12px" class="prod-section-title demanda">&#128204; Produtos Sob Demanda</h3>
+      <div class="grid-3 mb-24 product-list">
+        <div class="product-card demanda" data-type="demanda">
+          <div class="product-number">PRODUTO 08</div>
+          <h4>Analise de Projetos Especiais</h4>
+          <p>Analise tecnica de projetos especificos solicitados pela fiscalizacao.</p>
+          <div class="product-footer">
+            <span class="badge badge-success">Concluido</span>
+            <span class="text-xs text-muted">Demanda #45</span>
+          </div>
+        </div>
+        <div class="product-card demanda" data-type="demanda">
+          <div class="product-number">PRODUTO 09</div>
+          <h4>Laudos Tecnicos</h4>
+          <p>Elaboracao de laudos tecnicos e pareceres sob solicitacao formal.</p>
+          <div class="product-footer">
+            <span class="badge badge-warning">Em Elaboracao</span>
+            <span class="text-xs text-muted">Demanda #52</span>
+          </div>
+        </div>
+        <div class="product-card demanda" data-type="demanda">
+          <div class="product-number">PRODUTO 10</div>
+          <h4>Pericias e Vistorias</h4>
+          <p>Realizacao de pericias tecnicas e vistorias de campo especializadas.</p>
+          <div class="product-footer">
+            <span class="badge badge-gray">Aguardando Demanda</span>
+            <span class="text-xs text-muted">--</span>
+          </div>
+        </div>
+        <div class="product-card demanda" data-type="demanda">
+          <div class="product-number">PRODUTO 11</div>
+          <h4>Apoio a Emergencias</h4>
+          <p>Suporte tecnico em situacoes emergenciais na malha rodoviaria.</p>
+          <div class="product-footer">
+            <span class="badge badge-gray">Aguardando Demanda</span>
+            <span class="text-xs text-muted">--</span>
+          </div>
+        </div>
+        <div class="product-card demanda" data-type="demanda">
+          <div class="product-number">PRODUTO 12</div>
+          <h4>Estudos e Pesquisas</h4>
+          <p>Elaboracao de estudos tecnicos e pesquisas aplicadas ao segmento rodoviario.</p>
+          <div class="product-footer">
+            <span class="badge badge-info">Em Andamento</span>
+            <span class="text-xs text-muted">Demanda #48</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Controle de Prazos -->
+      <div class="card">
+        <div class="card-header"><h3>Controle de Prazos - Validacao Previa pela Fiscalizacao</h3></div>
+        <div class="card-body" style="padding:0">
+          <table>
+            <thead>
+              <tr><th>Produto</th><th>Data Entrega</th><th>Prazo Validacao</th><th>Status Validacao</th><th>Dias Restantes</th><th>Acao</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>P01 - Relatorio Mensal</td><td>05/03/2026</td><td>03/03/2026</td>
+                <td><span class="badge badge-success">Validado</span></td>
+                <td><strong style="color:var(--success)">0 (Concluido)</strong></td>
+                <td><button class="btn btn-sm btn-secondary">Ver Detalhes</button></td>
+              </tr>
+              <tr>
+                <td>P02 - Apoio Planejamento</td><td>10/03/2026</td><td>08/03/2026</td>
+                <td><span class="badge badge-warning">Em Analise</span></td>
+                <td><strong style="color:var(--warning)">1 dia</strong></td>
+                <td><button class="btn btn-sm btn-primary">Acompanhar</button></td>
+              </tr>
+              <tr>
+                <td>P03 - Gestao Infraestrutura</td><td>12/03/2026</td><td>10/03/2026</td>
+                <td><span class="badge badge-info">Enviado</span></td>
+                <td><strong style="color:var(--info)">3 dias</strong></td>
+                <td><button class="btn btn-sm btn-secondary">Ver Detalhes</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div><!-- /content -->
+  </div><!-- /main -->
+</div><!-- /app -->
+
+<!-- ===== MODALS ===== -->
+<!-- Modal: Novo Produto -->
+<div class="modal-overlay" id="modalNovoProduto">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>Registrar Entrega de Produto</h3>
+      <button class="modal-close" onclick="closeModal('modalNovoProduto')">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label>Produto</label>
+        <select class="form-control">
+          <option>Selecione o produto...</option>
+          <option>P01 - Relatorio Mensal</option>
+          <option>P02 - Apoio ao Planejamento</option>
+          <option>P03 - Gestao de Infraestrutura</option>
+          <option>P04 - Apoio a Fiscalizacao</option>
+          <option>P05 - Controle de Qualidade</option>
+          <option>P06 - Gestao Ambiental</option>
+          <option>P07 - Gestao Social</option>
+        </select>
+      </div>
+      <div class="grid-2">
+        <div class="form-group">
+          <label>Data de Entrega</label>
+          <input type="date" class="form-control">
+        </div>
+        <div class="form-group">
+          <label>Status</label>
+          <select class="form-control">
+            <option>Em Andamento</option>
+            <option>Em Revisao</option>
+            <option>Entregue</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Observacoes</label>
+        <textarea class="form-control" rows="3" placeholder="Descreva observacoes relevantes..."></textarea>
+      </div>
+      <div class="form-group">
+        <label>Anexar Documento</label>
+        <input type="file" class="form-control">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('modalNovoProduto')">Cancelar</button>
+      <button class="btn btn-primary">Salvar Registro</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== JAVASCRIPT ===== -->
+<script src="/src/js/app.js"></script>
+</body>
+</html>

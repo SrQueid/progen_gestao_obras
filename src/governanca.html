@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Governança - SGO</title>
+  <link rel="stylesheet" href="/src/css/styles.css">
+</head>
+<body>
+<div class="app">
+  <!-- ===== SIDEBAR ===== -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="logo">SGO</div>
+      <h1>Gestao de Obras<small>Sistema de Gestao de Contrato</small></h1>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-section">
+        <div class="nav-section-title">Principal</div>
+        <a data-page="dashboard" href="index.html">
+          <span class="icon">&#9632;</span> Painel de Controle
+        </a>
+        <a data-page="produtos" href="produtos.html">
+          <span class="icon">&#9776;</span> Produtos / Entregaveis
+          <span class="badge">12</span>
+        </a>
+      </div>
+        <div class="nav-section-title">Gestao</div>
+      <div class="nav-section">
+        <a class="active" data-page="governanca" href="governanca.html">
+          <span class="icon">&#128197;</span> Governanca e Reunioes
+        </a>
+        <a data-page="equipe" href="equipe.html">
+          <span class="icon">&#128101;</span> Equipe e Mobilizacao
+        </a>
+        <a data-page="medicao" href="medicao.html">
+          <span class="icon">&#128178;</span> Medicao e Pagamento
+        </a>
+      </div>
+      <div class="nav-section">
+        <div class="nav-section-title">Qualidade</div>
+        <a data-page="imr" href="imr.html">
+          <span class="icon">&#9733;</span> IMR - Desempenho
+          <span class="badge">85</span>
+        </a>
+      </div>
+      <div class="nav-section">
+        <div class="nav-section-title">Documentos</div>
+        <a data-page="documentos" href="documentos.html">
+          <span class="icon">&#128452;</span> Documentos e Malha
+        </a>
+        <a data-page="relatorio" href="relatorio.html">
+          <span class="icon">&#128196;</span> Relatorio de Atendimento
+        </a>
+      </div>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="user-info">
+        <div class="avatar">JC</div>
+        <div>
+          <div style="font-weight:600;color:var(--gray-300);font-size:13px">Joao Carlos</div>
+          <div style="font-size:11px">Gerente de Contrato</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ===== MAIN ===== -->
+  <div class="main">
+    <header class="header">
+      <div class="header-left">
+        <button class="menu-toggle" onclick="toggleSidebar()">&#9776;</button>
+        <div>
+          <h2 id="page-title">Governanca e Reunioes</h2>
+          <div class="breadcrumb" id="breadcrumb">
+            SGO &rsaquo; <span>Governanca e Reunioes</span>
+          </div>
+        </div>
+      </div>
+      <div class="header-right">
+        <div style="position:relative">
+          <button class="btn-icon" onclick="toggleNotif()">&#128276;</button>
+          <div class="notif-panel" id="notifPanel">
+            <div class="notif-header">Notificacoes</div>
+            <div class="notif-item">
+              <div><strong>Reuniao</strong> - Coordenacao Geral amanha as 14h</div>
+              <div class="notif-time">Ontem, 09:00</div>
+            </div>
+          </div>
+        </div>
+        <button class="btn-icon">&#9881;</button>
+      </div>
+    </header>
+
+    <div class="content">
+      <div class="stats-grid mb-24">
+        <div class="stat-card">
+          <div class="stat-icon blue">&#128197;</div>
+          <div class="stat-info">
+            <h4>Reunioes Diarias (Execucao)</h4>
+            <div class="value">22</div>
+            <div class="change">realizadas este mes</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon green">&#128197;</div>
+          <div class="stat-info">
+            <h4>Reunioes Semanais (Produto)</h4>
+            <div class="value">4</div>
+            <div class="change">realizadas este mes</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon orange">&#128197;</div>
+          <div class="stat-info">
+            <h4>Reunioes Mensais (Coord. Geral)</h4>
+            <div class="value">1</div>
+            <div class="change">proxima: 15/03/2026</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid-2 mb-24">
+        <!-- Calendar -->
+        <div class="card">
+          <div class="card-header">
+            <h3>Calendario - Marco 2026</h3>
+            <div class="flex-gap-8">
+              <button class="btn btn-sm btn-secondary">&laquo; Fev</button>
+              <button class="btn btn-sm btn-secondary">Abr &raquo;</button>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="calendar-grid">
+              <div class="day-header">Dom</div><div class="day-header">Seg</div><div class="day-header">Ter</div>
+              <div class="day-header">Qua</div><div class="day-header">Qui</div><div class="day-header">Sex</div>
+              <div class="day-header">Sab</div>
+              <div class="day other-month">1</div>
+              <div class="day has-event">2</div><div class="day">3</div><div class="day has-event">4</div>
+              <div class="day">5</div><div class="day has-event">6</div><div class="day other-month">7</div>
+              <div class="day other-month">8</div>
+              <div class="day today has-event">9</div><div class="day has-event">10</div><div class="day">11</div>
+              <div class="day has-event">12</div><div class="day">13</div><div class="day other-month">14</div>
+              <div class="day other-month">15</div>
+              <div class="day has-event">16</div><div class="day">17</div><div class="day has-event">18</div>
+              <div class="day">19</div><div class="day">20</div><div class="day other-month">21</div>
+              <div class="day other-month">22</div>
+              <div class="day has-event">23</div><div class="day">24</div><div class="day">25</div>
+              <div class="day has-event">26</div><div class="day">27</div><div class="day other-month">28</div>
+              <div class="day other-month">29</div>
+              <div class="day">30</div><div class="day">31</div><div class="day"></div>
+              <div class="day"></div><div class="day"></div><div class="day"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Upcoming Meetings -->
+        <div class="card">
+          <div class="card-header">
+            <h3>Proximas Reunioes</h3>
+            <button class="btn btn-sm btn-primary" onclick="openModal('modalNovaReuniao')">+ Agendar</button>
+          </div>
+          <div class="card-body" style="padding:0">
+            <div class="list-item">
+              <div class="list-icon" style="background:#dbeafe;color:var(--primary)">D</div>
+              <div class="list-info">
+                <h5>Reuniao Diaria - Execucao</h5>
+                <p>Hoje, 09/03/2026 - 08:30 | Sala Virtual 01</p>
+              </div>
+              <span class="badge badge-success">Realizada</span>
+            </div>
+            <div class="list-item">
+              <div class="list-icon" style="background:#d1fae5;color:#059669">S</div>
+              <div class="list-info">
+                <h5>Reuniao Semanal - Produto</h5>
+                <p>10/03/2026 - 10:00 | Sala de Reunioes 3</p>
+              </div>
+              <span class="badge badge-warning">Pendente</span>
+            </div>
+            <div class="list-item">
+              <div class="list-icon" style="background:#fef3c7;color:#d97706">M</div>
+              <div class="list-info">
+                <h5>Coordenacao Geral Mensal</h5>
+                <p>15/03/2026 - 14:00 | Auditorio Principal</p>
+              </div>
+              <span class="badge badge-info">Confirmada</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Atas Repository -->
+      <div class="card">
+        <div class="card-header">
+          <h3>Repositorio de Atas e Tratativas</h3>
+          <div class="flex-gap-8">
+            <input type="text" class="form-control" placeholder="Buscar atas..." style="width:220px">
+            <button class="btn btn-sm btn-primary">+ Nova Ata</button>
+          </div>
+        </div>
+        <div class="card-body" style="padding:0">
+          <table>
+            <thead>
+              <tr><th>Tipo</th><th>Data</th><th>Titulo</th><th>Participantes</th><th>Status</th><th>Acoes</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="badge badge-info">Ata</span></td>
+                <td>08/03/2026</td>
+                <td>Reuniao Semanal - Produto #9</td>
+                <td>J. Carlos, M. Silva, A. Souza</td>
+                <td><span class="badge badge-success">Aprovada</span></td>
+                <td><button class="btn btn-sm btn-secondary">Abrir</button></td>
+              </tr>
+              <tr>
+                <td><span class="badge badge-warning">Oficio</span></td>
+                <td>07/03/2026</td>
+                <td>OF-032/2026 - Solicitacao de Prorrogacao</td>
+                <td>Fiscalizacao, Gestao</td>
+                <td><span class="badge badge-warning">Pendente</span></td>
+                <td><button class="btn btn-sm btn-secondary">Abrir</button></td>
+              </tr>
+              <tr>
+                <td><span class="badge badge-gray">E-mail</span></td>
+                <td>06/03/2026</td>
+                <td>RE: Esclarecimentos Produto 05</td>
+                <td>M. Silva, Fiscalizacao</td>
+                <td><span class="badge badge-success">Respondido</span></td>
+                <td><button class="btn btn-sm btn-secondary">Abrir</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div><!-- /content -->
+  </div><!-- /main -->
+</div><!-- /app -->
+
+<!-- ===== MODALS ===== -->
+<!-- Modal: Nova Reuniao -->
+<div class="modal-overlay" id="modalNovaReuniao">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>Agendar Nova Reuniao</h3>
+      <button class="modal-close" onclick="closeModal('modalNovaReuniao')">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label>Tipo de Reuniao</label>
+        <select class="form-control">
+          <option>Diaria - Execucao</option>
+          <option>Semanal - Produto</option>
+          <option>Mensal - Coordenacao Geral</option>
+          <option>Extraordinaria</option>
+        </select>
+      </div>
+      <div class="grid-2">
+        <div class="form-group">
+          <label>Data</label>
+          <input type="date" class="form-control">
+        </div>
+        <div class="form-group">
+          <label>Horario</label>
+          <input type="time" class="form-control">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Local / Sala</label>
+        <input type="text" class="form-control" placeholder="Ex: Sala Virtual 01">
+      </div>
+      <div class="form-group">
+        <label>Participantes</label>
+        <input type="text" class="form-control" placeholder="Nomes separados por virgula">
+      </div>
+      <div class="form-group">
+        <label>Pauta</label>
+        <textarea class="form-control" rows="3" placeholder="Itens da pauta..."></textarea>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('modalNovaReuniao')">Cancelar</button>
+      <button class="btn btn-primary">Agendar Reuniao</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== JAVASCRIPT ===== -->
+<script src="/src/js/app.js"></script>
+</body>
+</html>

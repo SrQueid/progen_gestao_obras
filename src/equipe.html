@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Equipe - SGO</title>
+  <link rel="stylesheet" href="/src/css/styles.css">
+</head>
+<body>
+<div class="app">
+  <!-- ===== SIDEBAR ===== -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="logo">SGO</div>
+      <h1>Gestao de Obras<small>Sistema de Gestao de Contrato</small></h1>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-section">
+        <div class="nav-section-title">Principal</div>
+        <a data-page="dashboard" href="index.html">
+          <span class="icon">&#9632;</span> Painel de Controle
+        </a>
+        <a data-page="produtos" href="produtos.html">
+          <span class="icon">&#9776;</span> Produtos / Entregaveis
+          <span class="badge">12</span>
+        </a>
+      </div>
+        <div class="nav-section-title">Gestao</div>
+      <div class="nav-section">
+        <a data-page="governanca" href="governanca.html">
+          <span class="icon">&#128197;</span> Governanca e Reunioes
+        </a>
+        <a class="active" data-page="equipe" href="equipe.html">
+          <span class="icon">&#128101;</span> Equipe e Mobilizacao
+        </a>
+        <a data-page="medicao" href="medicao.html">
+          <span class="icon">&#128178;</span> Medicao e Pagamento
+        </a>
+      </div>
+      <div class="nav-section">
+        <div class="nav-section-title">Qualidade</div>
+        <a data-page="imr" href="imr.html">
+          <span class="icon">&#9733;</span> IMR - Desempenho
+          <span class="badge">85</span>
+        </a>
+      </div>
+      <div class="nav-section">
+        <div class="nav-section-title">Documentos</div>
+        <a data-page="documentos" href="documentos.html">
+          <span class="icon">&#128452;</span> Documentos e Malha
+        </a>
+        <a data-page="relatorio" href="relatorio.html">
+          <span class="icon">&#128196;</span> Relatorio de Atendimento
+        </a>
+      </div>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="user-info">
+        <div class="avatar">JC</div>
+        <div>
+          <div style="font-weight:600;color:var(--gray-300);font-size:13px">Joao Carlos</div>
+          <div style="font-size:11px">Gerente de Contrato</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ===== MAIN ===== -->
+  <div class="main">
+    <header class="header">
+      <div class="header-left">
+        <button class="menu-toggle" onclick="toggleSidebar()">&#9776;</button>
+        <div>
+          <h2 id="page-title">Equipe e Mobilizacao</h2>
+          <div class="breadcrumb" id="breadcrumb">
+            SGO &rsaquo; <span>Equipe e Mobilizacao</span>
+          </div>
+        </div>
+      </div>
+      <div class="header-right">
+        <div style="position:relative">
+          <button class="btn-icon" onclick="toggleNotif()">&#128276;</button>
+          <div class="notif-panel" id="notifPanel">
+            <div class="notif-header">Notificacoes</div>
+            <div class="notif-item">
+              <div><strong>Equipe</strong> - Novo colaborador mobilizado</div>
+              <div class="notif-time">Hoje, 08:00</div>
+            </div>
+          </div>
+        </div>
+        <button class="btn-icon">&#9881;</button>
+      </div>
+    </header>
+
+    <div class="content">
+      <div class="stats-grid mb-24">
+        <div class="stat-card">
+          <div class="stat-icon blue">&#128101;</div>
+          <div class="stat-info">
+            <h4>Total Colaboradores</h4>
+            <div class="value">47</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon green">&#127970;</div>
+          <div class="stat-info">
+            <h4>Regime Presencial</h4>
+            <div class="value">34</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon orange">&#128187;</div>
+          <div class="stat-info">
+            <h4>Regime Remoto</h4>
+            <div class="value">13</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon red">&#128176;</div>
+          <div class="stat-info">
+            <h4>Orcamento Equipe</h4>
+            <div class="value">R$ 485k</div>
+            <div class="change">de R$ 520k referencial</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex-between mb-20">
+        <div class="pill-nav">
+          <span class="pill active">Todos</span>
+          <span class="pill">Presencial</span>
+          <span class="pill">Remoto</span>
+          <span class="pill">Por Funcao</span>
+        </div>
+        <button class="btn btn-primary" onclick="openModal('modalNovoColaborador')">+ Novo Colaborador</button>
+      </div>
+
+      <div class="card mb-24">
+        <div class="card-header">
+          <h3>Quadro de Colaboradores</h3>
+          <input type="text" class="form-control" placeholder="Buscar colaborador..." style="width:220px">
+        </div>
+        <div class="card-body" style="padding:0">
+          <table>
+            <thead>
+              <tr><th>Nome</th><th>Funcao / Cargo</th><th>Regime</th><th>Posto</th><th>Salario Base</th><th>Piso Cat.</th><th>Status</th><th>Acoes</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><div class="flex-gap-8"><div style="width:30px;height:30px;border-radius:50%;background:var(--primary);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600">JC</div> Joao Carlos</div></td>
+                <td>Gerente de Contrato</td><td><span class="badge badge-info">Presencial</span></td>
+                <td>Posto 01 - Sede</td><td>R$ 18.500</td><td>R$ 15.000</td>
+                <td><span class="badge badge-success">Ativo</span></td>
+                <td><button class="btn btn-sm btn-secondary">Editar</button></td>
+              </tr>
+              <tr>
+                <td><div class="flex-gap-8"><div style="width:30px;height:30px;border-radius:50%;background:#059669;color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600">MS</div> Maria Silva</div></td>
+                <td>Engenheira Civil Sr.</td><td><span class="badge badge-info">Presencial</span></td>
+                <td>Posto 02 - UL Norte</td><td>R$ 14.200</td><td>R$ 12.500</td>
+                <td><span class="badge badge-success">Ativo</span></td>
+                <td><button class="btn btn-sm btn-secondary">Editar</button></td>
+              </tr>
+              <tr>
+                <td><div class="flex-gap-8"><div style="width:30px;height:30px;border-radius:50%;background:#d97706;color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600">AS</div> Ana Souza</div></td>
+                <td>Analista Ambiental</td><td><span class="badge badge-warning">Remoto</span></td>
+                <td>Remoto - Home Office</td><td>R$ 9.800</td><td>R$ 8.500</td>
+                <td><span class="badge badge-success">Ativo</span></td>
+                <td><button class="btn btn-sm btn-secondary">Editar</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Controle de Postos -->
+      <div class="card">
+        <div class="card-header"><h3>Controle de Postos de Trabalho</h3></div>
+        <div class="card-body" style="padding:0">
+          <table>
+            <thead>
+              <tr><th>Posto</th><th>Localizacao</th><th>Capacidade</th><th>Ocupacao</th><th>Orcamento Ref.</th><th>Custo Atual</th><th>Status</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Posto 01</strong></td><td>Sede - Brasilia/DF</td><td>20</td>
+                <td>
+                  <div class="flex-gap-8">18 <div class="progress" style="width:80px"><div class="progress-bar green" style="width:90%"></div></div></div>
+                </td>
+                <td>R$ 180.000</td><td>R$ 172.500</td>
+                <td><span class="badge badge-success">Dentro</span></td>
+              </tr>
+              <tr>
+                <td><strong>Posto 02</strong></td><td>UL Norte - Belem/PA</td><td>10</td>
+                <td>
+                  <div class="flex-gap-8">9 <div class="progress" style="width:80px"><div class="progress-bar orange" style="width:90%"></div></div></div>
+                </td>
+                <td>R$ 95.000</td><td>R$ 93.200</td>
+                <td><span class="badge badge-warning">Proximo Limite</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div><!-- /content -->
+  </div><!-- /main -->
+</div><!-- /app -->
+
+<!-- ===== MODALS ===== -->
+<!-- Modal: Novo Colaborador -->
+<div class="modal-overlay" id="modalNovoColaborador">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>Cadastrar Novo Colaborador</h3>
+      <button class="modal-close" onclick="closeModal('modalNovoColaborador')">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="grid-2">
+        <div class="form-group">
+          <label>Nome Completo</label>
+          <input type="text" class="form-control" placeholder="Nome do colaborador">
+        </div>
+        <div class="form-group">
+          <label>CPF</label>
+          <input type="text" class="form-control" placeholder="000.000.000-00">
+        </div>
+      </div>
+      <div class="grid-2">
+        <div class="form-group">
+          <label>Funcao / Cargo</label>
+          <select class="form-control">
+            <option>Selecione...</option>
+            <option>Engenheiro Civil</option>
+            <option>Engenheiro Eletricista</option>
+            <option>Analista Ambiental</option>
+            <option>Tecnico em Estradas</option>
+            <option>Administrativo</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Regime de Trabalho</label>
+          <select class="form-control">
+            <option>Presencial</option>
+            <option>Remoto</option>
+            <option>Hibrido</option>
+          </select>
+        </div>
+      </div>
+      <div class="grid-2">
+        <div class="form-group">
+          <label>Posto de Trabalho</label>
+          <select class="form-control">
+            <option>Posto 01 - Sede</option>
+            <option>Posto 02 - UL Norte</option>
+            <option>Remoto - Home Office</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Salario Base (R$)</label>
+          <input type="number" class="form-control" placeholder="0,00">
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('modalNovoColaborador')">Cancelar</button>
+      <button class="btn btn-primary">Cadastrar Colaborador</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== JAVASCRIPT ===== -->
+<script src="/src/js/app.js"></script>
+</body>
+</html>

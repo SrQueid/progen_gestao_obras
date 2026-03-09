@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Relatório - SGO</title>
+  <link rel="stylesheet" href="/src/css/styles.css">
+</head>
+<body>
+<div class="app">
+  <!-- ===== SIDEBAR ===== -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="logo">SGO</div>
+      <h1>Gestao de Obras<small>Sistema de Gestao de Contrato</small></h1>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-section">
+        <div class="nav-section-title">Principal</div>
+        <a data-page="dashboard" href="index.html">
+          <span class="icon">&#9632;</span> Painel de Controle
+        </a>
+        <a data-page="produtos" href="produtos.html">
+          <span class="icon">&#9776;</span> Produtos / Entregaveis
+          <span class="badge">12</span>
+        </a>
+      </div>
+        <div class="nav-section-title">Gestao</div>
+      <div class="nav-section">
+        <a data-page="governanca" href="governanca.html">
+          <span class="icon">&#128197;</span> Governanca e Reunioes
+        </a>
+        <a data-page="equipe" href="equipe.html">
+          <span class="icon">&#128101;</span> Equipe e Mobilizacao
+        </a>
+        <a data-page="medicao" href="medicao.html">
+          <span class="icon">&#128178;</span> Medicao e Pagamento
+        </a>
+      </div>
+      <div class="nav-section">
+        <div class="nav-section-title">Qualidade</div>
+        <a data-page="imr" href="imr.html">
+          <span class="icon">&#9733;</span> IMR - Desempenho
+          <span class="badge">85</span>
+        </a>
+      </div>
+      <div class="nav-section">
+        <div class="nav-section-title">Documentos</div>
+        <a data-page="documentos" href="documentos.html">
+          <span class="icon">&#128452;</span> Documentos e Malha
+        </a>
+        <a class="active" data-page="relatorio" href="relatorio.html">
+          <span class="icon">&#128196;</span> Relatorio de Atendimento
+        </a>
+      </div>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="user-info">
+        <div class="avatar">JC</div>
+        <div>
+          <div style="font-weight:600;color:var(--gray-300);font-size:13px">Joao Carlos</div>
+          <div style="font-size:11px">Gerente de Contrato</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ===== MAIN ===== -->
+  <div class="main">
+    <header class="header">
+      <div class="header-left">
+        <button class="menu-toggle" onclick="toggleSidebar()">&#9776;</button>
+        <div>
+          <h2 id="page-title">Relatorio de Atendimento</h2>
+          <div class="breadcrumb" id="breadcrumb">
+            SGO &rsaquo; <span>Relatorio de Atendimento</span>
+          </div>
+        </div>
+      </div>
+      <div class="header-right">
+        <div style="position:relative">
+          <button class="btn-icon" onclick="toggleNotif()">&#128276;</button>
+          <div class="notif-panel" id="notifPanel">
+            <div class="notif-header">Notificacoes</div>
+            <div class="notif-item">
+              <div><strong>Relatorio</strong> - Pronto para gerar</div>
+              <div class="notif-time">Hoje, 14:30</div>
+            </div>
+          </div>
+        </div>
+        <button class="btn-icon">&#9881;</button>
+      </div>
+    </header>
+
+    <div class="content">
+      <div class="flex-between mb-20">
+        <div>
+          <h3 style="font-size:16px;margin-bottom:4px">Relatorio de Atendimento Periodico</h3>
+          <p class="text-sm text-muted">Consolidacao das informacoes conforme Estrutura Minima exigida no TR</p>
+        </div>
+        <div class="flex-gap-8">
+          <select class="form-control" style="width:180px">
+            <option>Marco/2026</option>
+            <option>Fevereiro/2026</option>
+            <option>Janeiro/2026</option>
+          </select>
+          <button class="btn btn-success" onclick="openModal('modalGerarRelatorio')">&#128196; Gerar Relatorio</button>
+          <button class="btn btn-secondary">Exportar PDF</button>
+        </div>
+      </div>
+
+      <!-- Secoes do Relatorio -->
+      <div class="card mb-20">
+        <div class="card-header"><h3>1. Identificacao</h3><span class="badge badge-success">Completo</span></div>
+        <div class="card-body">
+          <div class="grid-2">
+            <div>
+              <div class="form-group">
+                <label>Titulo do Relatorio</label>
+                <input type="text" class="form-control" value="Relatorio de Atendimento - Marco/2026">
+              </div>
+              <div class="form-group">
+                <label>Contrato de Assessoramento</label>
+                <input type="text" class="form-control" value="Contrato nº 00XX/2025 - Assessoria Tecnica">
+              </div>
+            </div>
+            <div>
+              <div class="form-group">
+                <label>Periodo de Referencia</label>
+                <input type="text" class="form-control" value="01/03/2026 a 31/03/2026">
+              </div>
+              <div class="form-group">
+                <label>Responsavel Tecnico</label>
+                <input type="text" class="form-control" value="Joao Carlos - Gerente de Contrato">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card mb-20">
+        <div class="card-header"><h3>2. Resumo de Atividades</h3><span class="badge badge-warning">Em Preenchimento</span></div>
+        <div class="card-body">
+          <p class="text-sm text-muted mb-16">Descricao dos servicos realizados no mes para cada produto:</p>
+          <div class="list-item" style="border:1px solid var(--gray-200);border-radius:var(--radius);margin-bottom:8px">
+            <div class="list-icon" style="background:var(--primary-light);color:var(--primary)">P01</div>
+            <div class="list-info" style="flex:1">
+              <h5>Relatorio Mensal de Atividades</h5>
+              <p>Consolidacao completa das atividades do periodo com descricao detalhada.</p>
+            </div>
+            <span class="badge badge-success">Preenchido</span>
+          </div>
+          <div class="list-item" style="border:1px solid var(--gray-200);border-radius:var(--radius);margin-bottom:8px">
+            <div class="list-icon" style="background:var(--primary-light);color:var(--primary)">P02</div>
+            <div class="list-info" style="flex:1">
+              <h5>Apoio ao Planejamento</h5>
+              <p>Suporte tecnico a 12 contratos vigentes com acompanhamento de cronogramas.</p>
+            </div>
+            <span class="badge badge-success">Preenchido</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card mb-20">
+        <div class="card-header"><h3>3. Recursos Mobilizados</h3><span class="badge badge-success">Completo</span></div>
+        <div class="card-body">
+          <div class="grid-3 mb-16">
+            <div style="text-align:center;padding:16px;background:var(--gray-50);border-radius:var(--radius)">
+              <div style="font-size:28px;font-weight:700;color:var(--primary)">47</div>
+              <div class="text-sm text-muted">Equipe Tecnica Ativa</div>
+            </div>
+            <div style="text-align:center;padding:16px;background:var(--gray-50);border-radius:var(--radius)">
+              <div style="font-size:28px;font-weight:700;color:var(--primary)">12</div>
+              <div class="text-sm text-muted">Veiculos Utilizados</div>
+            </div>
+            <div style="text-align:center;padding:16px;background:var(--gray-50);border-radius:var(--radius)">
+              <div style="font-size:28px;font-weight:700;color:var(--primary)">8</div>
+              <div class="text-sm text-muted">Equipamentos em Uso</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card mb-20">
+        <div class="card-header"><h3>4. Gestao de Tratativas</h3><span class="badge badge-success">Completo</span></div>
+        <div class="card-body" style="padding:0">
+          <table>
+            <thead><tr><th>Tipo</th><th>Referencia</th><th>Descricao</th><th>Data</th><th>Resolucao</th></tr></thead>
+            <tbody>
+              <tr>
+                <td><span class="badge badge-warning">Notificacao</span></td>
+                <td>NOT-015/2026</td>
+                <td>Atraso na entrega do Produto 02</td>
+                <td>05/03/2026</td>
+                <td><span class="badge badge-success">Resolvida</span></td>
+              </tr>
+              <tr>
+                <td><span class="badge badge-info">Oficio</span></td>
+                <td>OF-032/2026</td>
+                <td>Solicitacao de prorrogacao de prazo</td>
+                <td>07/03/2026</td>
+                <td><span class="badge badge-warning">Em Analise</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card mb-20">
+        <div class="card-header"><h3>5. Indicadores (IMR)</h3><span class="badge badge-success">Completo</span></div>
+        <div class="card-body">
+          <div class="grid-3 mb-16">
+            <div style="text-align:center;padding:16px;background:var(--gray-50);border-radius:var(--radius)">
+              <div style="font-size:28px;font-weight:700;color:var(--success)">85</div>
+              <div class="text-sm text-muted">NDG do Mes</div>
+            </div>
+            <div style="text-align:center;padding:16px;background:var(--gray-50);border-radius:var(--radius)">
+              <div style="font-size:28px;font-weight:700;color:var(--danger)">-15</div>
+              <div class="text-sm text-muted">Deducoes Aplicadas</div>
+            </div>
+            <div style="text-align:center;padding:16px;background:var(--gray-50);border-radius:var(--radius)">
+              <div style="font-size:28px;font-weight:700;color:var(--info)">3</div>
+              <div class="text-sm text-muted">Acoes Corretivas</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="border-color:var(--primary)">
+        <div class="card-body" style="text-align:center;padding:24px">
+          <h3 style="margin-bottom:8px">Status Geral do Relatorio</h3>
+          <p class="text-sm text-muted mb-16">5 de 6 secoes completas</p>
+          <div class="progress" style="height:12px;max-width:400px;margin:0 auto">
+            <div class="progress-bar green" style="width:83%"></div>
+          </div>
+          <div style="margin-top:16px">
+            <button class="btn btn-lg btn-success" onclick="openModal('modalGerarRelatorio')">&#128196; Gerar Relatorio Completo</button>
+          </div>
+        </div>
+      </div>
+    </div><!-- /content -->
+  </div><!-- /main -->
+</div><!-- /app -->
+
+<!-- ===== MODALS ===== -->
+<!-- Modal: Gerar Relatorio -->
+<div class="modal-overlay" id="modalGerarRelatorio">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>Gerar Relatorio de Atendimento</h3>
+      <button class="modal-close" onclick="closeModal('modalGerarRelatorio')">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="alert alert-warning mb-20">
+        &#9888; <div><strong>Atencao:</strong> 1 secao ainda esta incompleta. Deseja gerar o relatorio mesmo assim?</div>
+      </div>
+      <h4 style="font-size:14px;margin-bottom:12px">Secoes do Relatorio:</h4>
+      <div class="checklist-item checked"><input type="checkbox" checked disabled><span>1. Identificacao - Capa, contracapa, indice</span></div>
+      <div class="checklist-item checked"><input type="checkbox" checked disabled><span>2. Resumo de Atividades (parcial)</span></div>
+      <div class="checklist-item checked"><input type="checkbox" checked disabled><span>3. Recursos Mobilizados</span></div>
+      <div class="checklist-item checked"><input type="checkbox" checked disabled><span>4. Gestao de Tratativas</span></div>
+      <div class="checklist-item checked"><input type="checkbox" checked disabled><span>5. Indicadores (IMR)</span></div>
+      <div class="checklist-item"><input type="checkbox" disabled><span>6. Anexos Tecnicos (3 de 5)</span></div>
+      <div class="form-group" style="margin-top:16px">
+        <label>Formato de Saida</label>
+        <select class="form-control">
+          <option>PDF - Relatorio Completo</option>
+          <option>DOCX - Editavel</option>
+          <option>PDF - Resumo Executivo</option>
+        </select>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('modalGerarRelatorio')">Cancelar</button>
+      <button class="btn btn-success">&#128196; Gerar Relatorio</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== JAVASCRIPT ===== -->
+<script src="/src/js/app.js"></script>
+</body>
+</html>

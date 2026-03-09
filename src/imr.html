@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>IMR - Desempenho - SGO</title>
+  <link rel="stylesheet" href="/src/css/styles.css">
+</head>
+<body>
+<div class="app">
+  <!-- ===== SIDEBAR ===== -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="logo">SGO</div>
+      <h1>Gestao de Obras<small>Sistema de Gestao de Contrato</small></h1>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-section">
+        <div class="nav-section-title">Principal</div>
+        <a data-page="dashboard" href="index.html">
+          <span class="icon">&#9632;</span> Painel de Controle
+        </a>
+        <a data-page="produtos" href="produtos.html">
+          <span class="icon">&#9776;</span> Produtos / Entregaveis
+          <span class="badge">12</span>
+        </a>
+      </div>
+        <div class="nav-section-title">Gestao</div>
+      <div class="nav-section">
+        <a data-page="governanca" href="governanca.html">
+          <span class="icon">&#128197;</span> Governanca e Reunioes
+        </a>
+        <a data-page="equipe" href="equipe.html">
+          <span class="icon">&#128101;</span> Equipe e Mobilizacao
+        </a>
+        <a data-page="medicao" href="medicao.html">
+          <span class="icon">&#128178;</span> Medicao e Pagamento
+        </a>
+      </div>
+      <div class="nav-section">
+        <div class="nav-section-title">Qualidade</div>
+        <a class="active" data-page="imr" href="imr.html">
+          <span class="icon">&#9733;</span> IMR - Desempenho
+          <span class="badge">85</span>
+        </a>
+      </div>
+      <div class="nav-section">
+        <div class="nav-section-title">Documentos</div>
+        <a data-page="documentos" href="documentos.html">
+          <span class="icon">&#128452;</span> Documentos e Malha
+        </a>
+        <a data-page="relatorio" href="relatorio.html">
+          <span class="icon">&#128196;</span> Relatorio de Atendimento
+        </a>
+      </div>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="user-info">
+        <div class="avatar">JC</div>
+        <div>
+          <div style="font-weight:600;color:var(--gray-300);font-size:13px">Joao Carlos</div>
+          <div style="font-size:11px">Gerente de Contrato</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ===== MAIN ===== -->
+  <div class="main">
+    <header class="header">
+      <div class="header-left">
+        <button class="menu-toggle" onclick="toggleSidebar()">&#9776;</button>
+        <div>
+          <h2 id="page-title">IMR - Desempenho</h2>
+          <div class="breadcrumb" id="breadcrumb">
+            SGO &rsaquo; <span>IMR - Desempenho</span>
+          </div>
+        </div>
+      </div>
+      <div class="header-right">
+        <div style="position:relative">
+          <button class="btn-icon" onclick="toggleNotif()">&#128276;</button>
+          <div class="notif-panel" id="notifPanel">
+            <div class="notif-header">Notificacoes</div>
+            <div class="notif-item">
+              <div><strong>IMR</strong> - Nota Global atualizada: 85 pontos</div>
+              <div class="notif-time">Ontem, 16:45</div>
+            </div>
+          </div>
+        </div>
+        <button class="btn-icon">&#9881;</button>
+      </div>
+    </header>
+
+    <div class="content">
+      <div class="stats-grid mb-24">
+        <div class="stat-card">
+          <div class="stat-icon green">&#9733;</div>
+          <div class="stat-info">
+            <h4>NDG Atual</h4>
+            <div class="value">85</div>
+            <div class="change up">&#9650; +3 vs. mes anterior</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon orange">&#9888;</div>
+          <div class="stat-info">
+            <h4>Deducoes no Mes</h4>
+            <div class="value">-15</div>
+            <div class="change down">3 ocorrencias</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon blue">&#128200;</div>
+          <div class="stat-info">
+            <h4>Media 3 Meses</h4>
+            <div class="value">83.7</div>
+            <div class="change">Tendencia estavel</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon red">&#128680;</div>
+          <div class="stat-info">
+            <h4>Alertas Ativos</h4>
+            <div class="value">1</div>
+            <div class="change down">Produto 05 abaixo de 80</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid-2 mb-24">
+        <!-- NDG Calculator -->
+        <div class="card">
+          <div class="card-header"><h3>Calculadora NDG - Marco/2026</h3></div>
+          <div class="card-body">
+            <div class="flex-center mb-20">
+              <div class="score-circle score-high">
+                <div class="score-inner">
+                  <span style="font-size:36px;font-weight:700;color:var(--success)">85</span>
+                  <span class="label">NDG Pontos</span>
+                </div>
+              </div>
+            </div>
+            <div style="text-align:center;margin-bottom:20px">
+              <span class="badge badge-success" style="font-size:13px;padding:6px 16px">Desempenho Satisfatorio</span>
+            </div>
+            <table>
+              <thead><tr><th>Criterio / Falha</th><th>Deducao</th><th>Pontuacao</th></tr></thead>
+              <tbody>
+                <tr><td>Pontuacao Inicial</td><td>--</td><td><strong>100</strong></td></tr>
+                <tr><td>Atraso entrega P02 (2 dias)</td><td style="color:var(--danger)">-5</td><td>95</td></tr>
+                <tr><td>Inconsistencia dados P05</td><td style="color:var(--danger)">-8</td><td>87</td></tr>
+                <tr><td>Falha comunicacao UL Norte</td><td style="color:var(--danger)">-2</td><td>85</td></tr>
+                <tr style="background:var(--gray-50);font-weight:700">
+                  <td>NOTA FINAL (NDG)</td><td>-15</td><td style="color:var(--success);font-size:16px">85</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Risk Alerts -->
+        <div class="card">
+          <div class="card-header"><h3>Alertas de Risco e Historico</h3></div>
+          <div class="card-body">
+            <div class="alert alert-danger">
+              &#128680; <div><strong>Atencao:</strong> Produto 05 acumulou <strong>2 meses consecutivos</strong> com notas abaixo de 80.</div>
+            </div>
+            <div class="alert alert-warning">
+              &#9888; <div><strong>Alerta:</strong> Se NDG ficar abaixo de 50 pontos, ha risco de <strong>rescisao contratual</strong>.</div>
+            </div>
+            <h4 style="font-size:14px;margin:16px 0 12px">Historico NDG (ultimos 6 meses)</h4>
+            <table>
+              <thead><tr><th>Mes</th><th>NDG</th><th>Deducoes</th><th>Classificacao</th></tr></thead>
+              <tbody>
+                <tr><td>Mar/2026</td><td><strong>85</strong></td><td>-15</td><td><span class="badge badge-success">Satisfatorio</span></td></tr>
+                <tr><td>Fev/2026</td><td><strong>82</strong></td><td>-18</td><td><span class="badge badge-success">Satisfatorio</span></td></tr>
+                <tr><td>Jan/2026</td><td><strong>78</strong></td><td>-22</td><td><span class="badge badge-warning">Atencao</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Plano de Acao -->
+      <div class="card">
+        <div class="card-header">
+          <h3>Plano de Acao Corretiva</h3>
+          <button class="btn btn-sm btn-primary">+ Nova Acao</button>
+        </div>
+        <div class="card-body" style="padding:0">
+          <table>
+            <thead>
+              <tr><th>ID</th><th>Falha Associada</th><th>Acao Corretiva</th><th>Responsavel</th><th>Prazo</th><th>Status</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>#AC-01</td><td>Atraso entrega P02</td>
+                <td>Reforcar equipe de planejamento com 2 analistas adicionais</td>
+                <td>Maria Silva</td><td>15/03/2026</td>
+                <td><span class="badge badge-warning">Em Andamento</span></td>
+              </tr>
+              <tr>
+                <td>#AC-02</td><td>Inconsistencia P05</td>
+                <td>Implementar dupla checagem de dados antes do envio</td>
+                <td>Pedro Lima</td><td>12/03/2026</td>
+                <td><span class="badge badge-success">Concluida</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div><!-- /content -->
+  </div><!-- /main -->
+</div><!-- /app -->
+
+<!-- ===== JAVASCRIPT ===== -->
+<script src="/src/js/app.js"></script>
+</body>
+</html>

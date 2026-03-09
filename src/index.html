@@ -17,39 +17,39 @@
     <nav class="sidebar-nav">
       <div class="nav-section">
         <div class="nav-section-title">Principal</div>
-        <a class="active" data-page="dashboard" onclick="navigateTo('dashboard')">
+        <a class="active" data-page="dashboard" href="index.html">
           <span class="icon">&#9632;</span> Painel de Controle
         </a>
-        <a data-page="produtos" onclick="navigateTo('produtos')">
+        <a data-page="produtos" href="produtos.html">
           <span class="icon">&#9776;</span> Produtos / Entregaveis
           <span class="badge">12</span>
         </a>
       </div>
-      <div class="nav-section">
         <div class="nav-section-title">Gestao</div>
-        <a data-page="governanca" onclick="navigateTo('governanca')">
+      <div class="nav-section">
+        <a data-page="governanca" href="governanca.html">
           <span class="icon">&#128197;</span> Governanca e Reunioes
         </a>
-        <a data-page="equipe" onclick="navigateTo('equipe')">
+        <a data-page="equipe" href="equipe.html">
           <span class="icon">&#128101;</span> Equipe e Mobilizacao
         </a>
-        <a data-page="medicao" onclick="navigateTo('medicao')">
+        <a data-page="medicao" href="medicao.html">
           <span class="icon">&#128178;</span> Medicao e Pagamento
         </a>
       </div>
       <div class="nav-section">
         <div class="nav-section-title">Qualidade</div>
-        <a data-page="imr" onclick="navigateTo('imr')">
+        <a data-page="imr" href="imr.html">
           <span class="icon">&#9733;</span> IMR - Desempenho
           <span class="badge">85</span>
         </a>
       </div>
       <div class="nav-section">
         <div class="nav-section-title">Documentos</div>
-        <a data-page="documentos" onclick="navigateTo('documentos')">
+        <a data-page="documentos" href="documentos.html">
           <span class="icon">&#128452;</span> Documentos e Malha
         </a>
-        <a data-page="relatorio" onclick="navigateTo('relatorio')">
+        <a data-page="relatorio" href="relatorio.html">
           <span class="icon">&#128196;</span> Relatorio de Atendimento
         </a>
       </div>
@@ -229,22 +229,8 @@
         </div>
       </section>
 
-      <!-- ============================== -->
-      <!-- PAGE: PRODUTOS                 -->
-      <!-- ============================== -->
-      <section class="page-section" id="page-produtos">
-        <div class="flex-between mb-20">
-          <div class="pill-nav">
-            <span class="pill active" onclick="filterProducts('all',this)">Todos (12)</span>
-            <span class="pill" onclick="filterProducts('mensal',this)">Mensais (01-07)</span>
-            <span class="pill" onclick="filterProducts('demanda',this)">Sob Demanda (08-12)</span>
-          </div>
-          <button class="btn btn-primary" onclick="openModal('modalNovoProduto')">+ Novo Registro</button>
-        </div>
-
-        <!-- Mensal Products -->
-        <h3 style="font-size:14px;color:var(--gray-600);margin-bottom:12px" class="prod-section-title mensal">&#128197; Produtos de Frequencia Mensal</h3>
-        <div class="grid-3 mb-24 product-list">
+      <!-- Redirect to produtos.html for other pages -->
+      <section class="page-section" id="page-produtos" style="display:none">
           <div class="product-card mensal" data-type="mensal">
             <div class="product-number">PRODUTO 01</div>
             <h4>Relatorio Mensal de Atividades</h4>
@@ -1619,128 +1605,6 @@
 </div>
 
 <!-- ===== JAVASCRIPT ===== -->
-<script>
-// Navigation
-function navigateTo(page) {
-  // Hide all pages
-  document.querySelectorAll('.page-section').forEach(p => p.classList.remove('active'));
-  // Show target
-  document.getElementById('page-' + page).classList.add('active');
-  // Update sidebar
-  document.querySelectorAll('.sidebar-nav a').forEach(a => a.classList.remove('active'));
-  document.querySelector('[data-page="'+page+'"]').classList.add('active');
-  // Update header
-  const titles = {
-    dashboard: 'Painel de Controle',
-    produtos: 'Produtos / Entregaveis',
-    governanca: 'Governanca e Reunioes',
-    equipe: 'Equipe e Mobilizacao',
-    medicao: 'Medicao e Pagamento',
-    imr: 'IMR - Desempenho',
-    documentos: 'Documentos e Malha Rodoviaria',
-    relatorio: 'Relatorio de Atendimento'
-  };
-  document.getElementById('page-title').textContent = titles[page] || page;
-  document.getElementById('breadcrumb').innerHTML = 'SGO &rsaquo; <span>' + (titles[page] || page) + '</span>';
-  // Close sidebar on mobile
-  document.getElementById('sidebar').classList.remove('open');
-}
-
-// Tabs
-function switchTab(tabGroupId, targetId) {
-  const group = document.getElementById(tabGroupId);
-  group.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-  event.target.classList.add('active');
-  // Find sibling tab-contents
-  let sibling = group.nextElementSibling;
-  while(sibling && sibling.classList.contains('tab-content')) {
-    sibling.classList.remove('active');
-    sibling = sibling.nextElementSibling;
-  }
-  document.getElementById(targetId).classList.add('active');
-}
-
-// Modals
-function openModal(id) {
-  document.getElementById(id).classList.add('show');
-}
-function closeModal(id) {
-  document.getElementById(id).classList.remove('show');
-}
-// Close modal on overlay click
-document.querySelectorAll('.modal-overlay').forEach(m => {
-  m.addEventListener('click', function(e) {
-    if (e.target === this) this.classList.remove('show');
-  });
-});
-
-// Toggle sidebar (mobile)
-function toggleSidebar() {
-  document.getElementById('sidebar').classList.toggle('open');
-}
-
-// Notifications
-function toggleNotif() {
-  document.getElementById('notifPanel').classList.toggle('show');
-}
-// Close notif on click outside
-document.addEventListener('click', function(e) {
-  if (!e.target.closest('.btn-icon') && !e.target.closest('.notif-panel')) {
-    document.getElementById('notifPanel').classList.remove('show');
-  }
-});
-
-// Product filter
-function filterProducts(type, el) {
-  document.querySelectorAll('.pill-nav .pill').forEach(p => p.classList.remove('active'));
-  el.classList.add('active');
-  document.querySelectorAll('.product-card').forEach(c => {
-    if (type === 'all') {
-      c.style.display = '';
-    } else {
-      c.style.display = c.dataset.type === type ? '' : 'none';
-    }
-  });
-  document.querySelectorAll('.prod-section-title').forEach(t => {
-    if (type === 'all') {
-      t.style.display = '';
-    } else {
-      t.style.display = t.classList.contains(type) ? '' : 'none';
-    }
-  });
-}
-
-// Medicao calculator
-function calcMedicao() {
-  const pu = parseFloat(document.getElementById('calcPu').value) || 0;
-  const qc = parseFloat(document.getElementById('calcQc').value) || 0;
-  const imr = parseFloat(document.getElementById('calcImr').value) || 100;
-  const vm = pu * qc * (imr / 100);
-  document.getElementById('calcResult').textContent = 'R$ ' + vm.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2});
-}
-
-// Pill navigation (generic - make pills clickable)
-document.querySelectorAll('.pill-nav').forEach(nav => {
-  nav.querySelectorAll('.pill').forEach(pill => {
-    pill.addEventListener('click', function() {
-      if (!this.onclick) {
-        nav.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
-        this.classList.add('active');
-      }
-    });
-  });
-});
-
-// Checklist interaction
-document.querySelectorAll('.checklist-item input[type="checkbox"]').forEach(cb => {
-  cb.addEventListener('change', function() {
-    if (this.checked) {
-      this.parentElement.classList.add('checked');
-    } else {
-      this.parentElement.classList.remove('checked');
-    }
-  });
-});
-</script>
+<script src="/src/js/app.js"></script>
 </body>
 </html>
