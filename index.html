@@ -1,0 +1,1746 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>SGO - Sistema de Gestao de Obras</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="app">
+  <!-- ===== SIDEBAR ===== -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="logo">SGO</div>
+      <h1>Gestao de Obras<small>Sistema de Gestao de Contrato</small></h1>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-section">
+        <div class="nav-section-title">Principal</div>
+        <a class="active" data-page="dashboard" onclick="navigateTo('dashboard')">
+          <span class="icon">&#9632;</span> Painel de Controle
+        </a>
+        <a data-page="produtos" onclick="navigateTo('produtos')">
+          <span class="icon">&#9776;</span> Produtos / Entregaveis
+          <span class="badge">12</span>
+        </a>
+      </div>
+      <div class="nav-section">
+        <div class="nav-section-title">Gestao</div>
+        <a data-page="governanca" onclick="navigateTo('governanca')">
+          <span class="icon">&#128197;</span> Governanca e Reunioes
+        </a>
+        <a data-page="equipe" onclick="navigateTo('equipe')">
+          <span class="icon">&#128101;</span> Equipe e Mobilizacao
+        </a>
+        <a data-page="medicao" onclick="navigateTo('medicao')">
+          <span class="icon">&#128178;</span> Medicao e Pagamento
+        </a>
+      </div>
+      <div class="nav-section">
+        <div class="nav-section-title">Qualidade</div>
+        <a data-page="imr" onclick="navigateTo('imr')">
+          <span class="icon">&#9733;</span> IMR - Desempenho
+          <span class="badge">85</span>
+        </a>
+      </div>
+      <div class="nav-section">
+        <div class="nav-section-title">Documentos</div>
+        <a data-page="documentos" onclick="navigateTo('documentos')">
+          <span class="icon">&#128452;</span> Documentos e Malha
+        </a>
+        <a data-page="relatorio" onclick="navigateTo('relatorio')">
+          <span class="icon">&#128196;</span> Relatorio de Atendimento
+        </a>
+      </div>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="user-info">
+        <div class="avatar">JC</div>
+        <div>
+          <div style="font-weight:600;color:var(--gray-300);font-size:13px">Joao Carlos</div>
+          <div style="font-size:11px">Gerente de Contrato</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ===== MAIN ===== -->
+  <div class="main">
+    <header class="header">
+      <div class="header-left">
+        <button class="menu-toggle" onclick="toggleSidebar()">&#9776;</button>
+        <div>
+          <h2 id="page-title">Painel de Controle</h2>
+          <div class="breadcrumb" id="breadcrumb">
+            SGO &rsaquo; <span>Painel de Controle</span>
+          </div>
+        </div>
+      </div>
+      <div class="header-right">
+        <div style="position:relative">
+          <button class="btn-icon" onclick="toggleNotif()">&#128276;<span class="dot"></span></button>
+          <div class="notif-panel" id="notifPanel">
+            <div class="notif-header">Notificacoes</div>
+            <div class="notif-item">
+              <div><strong>Produto 02</strong> - Prazo de entrega em 3 dias</div>
+              <div class="notif-time">Hoje, 10:30</div>
+            </div>
+            <div class="notif-item">
+              <div><strong>IMR</strong> - Nota Global atualizada: 85 pontos</div>
+              <div class="notif-time">Ontem, 16:45</div>
+            </div>
+            <div class="notif-item">
+              <div><strong>Reuniao</strong> - Coordenacao Geral amanha as 14h</div>
+              <div class="notif-time">Ontem, 09:00</div>
+            </div>
+            <div class="notif-item">
+              <div><strong>Medicao</strong> - Checklist pendente para Mar/2026</div>
+              <div class="notif-time">07/03/2026</div>
+            </div>
+          </div>
+        </div>
+        <button class="btn-icon">&#9881;</button>
+      </div>
+    </header>
+
+    <div class="content">
+      <!-- ============================== -->
+      <!-- PAGE: DASHBOARD                -->
+      <!-- ============================== -->
+      <section class="page-section active" id="page-dashboard">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon blue">&#128196;</div>
+            <div class="stat-info">
+              <h4>Produtos Entregues</h4>
+              <div class="value">8 / 12</div>
+              <div class="change up">&#9650; 2 este mes</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon green">&#10003;</div>
+            <div class="stat-info">
+              <h4>Nota IMR (NDG)</h4>
+              <div class="value">85</div>
+              <div class="change up">&#9650; +3 vs. anterior</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon orange">&#128101;</div>
+            <div class="stat-info">
+              <h4>Equipe Mobilizada</h4>
+              <div class="value">47</div>
+              <div class="change">34 presencial / 13 remoto</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon purple">&#128197;</div>
+            <div class="stat-info">
+              <h4>Reunioes no Mes</h4>
+              <div class="value">18</div>
+              <div class="change">6 realizadas / 12 pendentes</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-2 mb-24">
+          <!-- Produtos Overview -->
+          <div class="card">
+            <div class="card-header">
+              <h3>Produtos - Visao Geral</h3>
+              <a onclick="navigateTo('produtos')" class="btn btn-sm btn-secondary">Ver Todos</a>
+            </div>
+            <div class="card-body" style="padding:0">
+              <table>
+                <thead>
+                  <tr><th>Produto</th><th>Status</th><th>Prazo</th><th>Progresso</th></tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>P01</strong> - Relatorio Mensal</td>
+                    <td><span class="badge badge-success">Entregue</span></td>
+                    <td>05/03</td>
+                    <td><div class="progress"><div class="progress-bar green" style="width:100%"></div></div></td>
+                  </tr>
+                  <tr>
+                    <td><strong>P02</strong> - Apoio Planejamento</td>
+                    <td><span class="badge badge-warning">Em Andamento</span></td>
+                    <td>10/03</td>
+                    <td><div class="progress"><div class="progress-bar orange" style="width:65%"></div></div></td>
+                  </tr>
+                  <tr>
+                    <td><strong>P03</strong> - Gestao Infraestrutura</td>
+                    <td><span class="badge badge-info">Revisao</span></td>
+                    <td>12/03</td>
+                    <td><div class="progress"><div class="progress-bar blue" style="width:80%"></div></div></td>
+                  </tr>
+                  <tr>
+                    <td><strong>P04</strong> - Apoio Fiscalizacao</td>
+                    <td><span class="badge badge-gray">Pendente</span></td>
+                    <td>15/03</td>
+                    <td><div class="progress"><div class="progress-bar blue" style="width:30%"></div></div></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Timeline -->
+          <div class="card">
+            <div class="card-header">
+              <h3>Atividades Recentes</h3>
+            </div>
+            <div class="card-body">
+              <div class="timeline">
+                <div class="timeline-item completed">
+                  <div class="time">Hoje, 09:30</div>
+                  <div class="desc"><strong>Produto 01</strong> entregue e validado pela fiscalizacao</div>
+                </div>
+                <div class="timeline-item completed">
+                  <div class="time">Ontem, 16:00</div>
+                  <div class="desc">Reuniao semanal de <strong>Produto</strong> realizada - ata registrada</div>
+                </div>
+                <div class="timeline-item">
+                  <div class="time">Ontem, 11:00</div>
+                  <div class="desc">Checklist de medicao <strong>Fev/2026</strong> aprovado</div>
+                </div>
+                <div class="timeline-item">
+                  <div class="time">07/03, 14:00</div>
+                  <div class="desc">Nota IMR atualizada: <strong>85 pontos</strong></div>
+                </div>
+                <div class="timeline-item">
+                  <div class="time">06/03, 10:00</div>
+                  <div class="desc">Novo colaborador mobilizado: <strong>Ana Souza</strong> (Eng. Civil)</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Alerts -->
+        <div class="card mb-24">
+          <div class="card-header"><h3>Alertas e Pendencias</h3></div>
+          <div class="card-body">
+            <div class="alert alert-warning">&#9888; <div><strong>Prazo Proximo:</strong> Produto 02 (Apoio ao Planejamento) deve ser entregue ate 10/03/2026 para validacao previa.</div></div>
+            <div class="alert alert-info">&#9432; <div><strong>Reuniao:</strong> Coordenacao Geral Mensal agendada para 15/03/2026 as 14h00.</div></div>
+            <div class="alert alert-danger">&#9888; <div><strong>IMR:</strong> Produto 05 recebeu deducao de 8 pontos na ultima avaliacao. Verificar plano de acao corretiva.</div></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================== -->
+      <!-- PAGE: PRODUTOS                 -->
+      <!-- ============================== -->
+      <section class="page-section" id="page-produtos">
+        <div class="flex-between mb-20">
+          <div class="pill-nav">
+            <span class="pill active" onclick="filterProducts('all',this)">Todos (12)</span>
+            <span class="pill" onclick="filterProducts('mensal',this)">Mensais (01-07)</span>
+            <span class="pill" onclick="filterProducts('demanda',this)">Sob Demanda (08-12)</span>
+          </div>
+          <button class="btn btn-primary" onclick="openModal('modalNovoProduto')">+ Novo Registro</button>
+        </div>
+
+        <!-- Mensal Products -->
+        <h3 style="font-size:14px;color:var(--gray-600);margin-bottom:12px" class="prod-section-title mensal">&#128197; Produtos de Frequencia Mensal</h3>
+        <div class="grid-3 mb-24 product-list">
+          <div class="product-card mensal" data-type="mensal">
+            <div class="product-number">PRODUTO 01</div>
+            <h4>Relatorio Mensal de Atividades</h4>
+            <p>Consolidacao das atividades realizadas no periodo com descricao detalhada dos servicos.</p>
+            <div class="product-footer">
+              <span class="badge badge-success">Entregue</span>
+              <span class="text-xs text-muted">Prazo: 05/03</span>
+            </div>
+            <div style="margin-top:10px">
+              <div class="progress"><div class="progress-bar green" style="width:100%"></div></div>
+            </div>
+          </div>
+          <div class="product-card mensal" data-type="mensal">
+            <div class="product-number">PRODUTO 02</div>
+            <h4>Apoio ao Planejamento</h4>
+            <p>Suporte tecnico ao planejamento de contratos vigentes. Formula: Vm = Pu x Qc.</p>
+            <div class="product-footer">
+              <span class="badge badge-warning">Em Andamento</span>
+              <span class="text-xs text-muted">Prazo: 10/03</span>
+            </div>
+            <div style="margin-top:10px">
+              <div class="progress"><div class="progress-bar orange" style="width:65%"></div></div>
+            </div>
+          </div>
+          <div class="product-card mensal" data-type="mensal">
+            <div class="product-number">PRODUTO 03</div>
+            <h4>Gestao de Infraestrutura</h4>
+            <p>Acompanhamento da infraestrutura rodoviaria e suporte a gestao patrimonial.</p>
+            <div class="product-footer">
+              <span class="badge badge-info">Em Revisao</span>
+              <span class="text-xs text-muted">Prazo: 12/03</span>
+            </div>
+            <div style="margin-top:10px">
+              <div class="progress"><div class="progress-bar blue" style="width:80%"></div></div>
+            </div>
+          </div>
+          <div class="product-card mensal" data-type="mensal">
+            <div class="product-number">PRODUTO 04</div>
+            <h4>Apoio a Fiscalizacao</h4>
+            <p>Suporte tecnico as atividades de fiscalizacao de obras e servicos em andamento.</p>
+            <div class="product-footer">
+              <span class="badge badge-gray">Pendente</span>
+              <span class="text-xs text-muted">Prazo: 15/03</span>
+            </div>
+            <div style="margin-top:10px">
+              <div class="progress"><div class="progress-bar blue" style="width:30%"></div></div>
+            </div>
+          </div>
+          <div class="product-card mensal" data-type="mensal">
+            <div class="product-number">PRODUTO 05</div>
+            <h4>Controle de Qualidade</h4>
+            <p>Verificacao e controle de qualidade de materiais e servicos executados nas obras.</p>
+            <div class="product-footer">
+              <span class="badge badge-warning">Em Andamento</span>
+              <span class="text-xs text-muted">Prazo: 18/03</span>
+            </div>
+            <div style="margin-top:10px">
+              <div class="progress"><div class="progress-bar orange" style="width:50%"></div></div>
+            </div>
+          </div>
+          <div class="product-card mensal" data-type="mensal">
+            <div class="product-number">PRODUTO 06</div>
+            <h4>Gestao Ambiental</h4>
+            <p>Monitoramento de condicionantes ambientais e acompanhamento de licencas.</p>
+            <div class="product-footer">
+              <span class="badge badge-success">Entregue</span>
+              <span class="text-xs text-muted">Prazo: 08/03</span>
+            </div>
+            <div style="margin-top:10px">
+              <div class="progress"><div class="progress-bar green" style="width:100%"></div></div>
+            </div>
+          </div>
+          <div class="product-card mensal" data-type="mensal">
+            <div class="product-number">PRODUTO 07</div>
+            <h4>Gestao Social e Desapropriacoes</h4>
+            <p>Acompanhamento de processos sociais e desapropriacoes vinculadas as obras.</p>
+            <div class="product-footer">
+              <span class="badge badge-info">Em Revisao</span>
+              <span class="text-xs text-muted">Prazo: 20/03</span>
+            </div>
+            <div style="margin-top:10px">
+              <div class="progress"><div class="progress-bar blue" style="width:75%"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <h3 style="font-size:14px;color:var(--gray-600);margin-bottom:12px" class="prod-section-title demanda">&#128204; Produtos Sob Demanda</h3>
+        <div class="grid-3 mb-24 product-list">
+          <div class="product-card demanda" data-type="demanda">
+            <div class="product-number">PRODUTO 08</div>
+            <h4>Analise de Projetos Especiais</h4>
+            <p>Analise tecnica de projetos especificos solicitados pela fiscalizacao.</p>
+            <div class="product-footer">
+              <span class="badge badge-success">Concluido</span>
+              <span class="text-xs text-muted">Demanda #45</span>
+            </div>
+          </div>
+          <div class="product-card demanda" data-type="demanda">
+            <div class="product-number">PRODUTO 09</div>
+            <h4>Laudos Tecnicos</h4>
+            <p>Elaboracao de laudos tecnicos e pareceres sob solicitacao formal.</p>
+            <div class="product-footer">
+              <span class="badge badge-warning">Em Elaboracao</span>
+              <span class="text-xs text-muted">Demanda #52</span>
+            </div>
+          </div>
+          <div class="product-card demanda" data-type="demanda">
+            <div class="product-number">PRODUTO 10</div>
+            <h4>Pericias e Vistorias</h4>
+            <p>Realizacao de pericias tecnicas e vistorias de campo especializadas.</p>
+            <div class="product-footer">
+              <span class="badge badge-gray">Aguardando Demanda</span>
+              <span class="text-xs text-muted">--</span>
+            </div>
+          </div>
+          <div class="product-card demanda" data-type="demanda">
+            <div class="product-number">PRODUTO 11</div>
+            <h4>Apoio a Emergencias</h4>
+            <p>Suporte tecnico em situacoes emergenciais na malha rodoviaria.</p>
+            <div class="product-footer">
+              <span class="badge badge-gray">Aguardando Demanda</span>
+              <span class="text-xs text-muted">--</span>
+            </div>
+          </div>
+          <div class="product-card demanda" data-type="demanda">
+            <div class="product-number">PRODUTO 12</div>
+            <h4>Estudos e Pesquisas</h4>
+            <p>Elaboracao de estudos tecnicos e pesquisas aplicadas ao segmento rodoviario.</p>
+            <div class="product-footer">
+              <span class="badge badge-info">Em Andamento</span>
+              <span class="text-xs text-muted">Demanda #48</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Controle de Prazos -->
+        <div class="card">
+          <div class="card-header"><h3>Controle de Prazos - Validacao Previa pela Fiscalizacao</h3></div>
+          <div class="card-body" style="padding:0">
+            <table>
+              <thead>
+                <tr><th>Produto</th><th>Data Entrega</th><th>Prazo Validacao</th><th>Status Validacao</th><th>Dias Restantes</th><th>Acao</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>P01 - Relatorio Mensal</td><td>05/03/2026</td><td>03/03/2026</td>
+                  <td><span class="badge badge-success">Validado</span></td>
+                  <td><strong style="color:var(--success)">0 (Concluido)</strong></td>
+                  <td><button class="btn btn-sm btn-secondary">Ver Detalhes</button></td>
+                </tr>
+                <tr>
+                  <td>P02 - Apoio Planejamento</td><td>10/03/2026</td><td>08/03/2026</td>
+                  <td><span class="badge badge-warning">Em Analise</span></td>
+                  <td><strong style="color:var(--warning)">1 dia</strong></td>
+                  <td><button class="btn btn-sm btn-primary">Acompanhar</button></td>
+                </tr>
+                <tr>
+                  <td>P03 - Gestao Infraestrutura</td><td>12/03/2026</td><td>10/03/2026</td>
+                  <td><span class="badge badge-info">Enviado</span></td>
+                  <td><strong style="color:var(--info)">3 dias</strong></td>
+                  <td><button class="btn btn-sm btn-secondary">Ver Detalhes</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================== -->
+      <!-- PAGE: GOVERNANCA               -->
+      <!-- ============================== -->
+      <section class="page-section" id="page-governanca">
+        <div class="stats-grid mb-24">
+          <div class="stat-card">
+            <div class="stat-icon blue">&#128197;</div>
+            <div class="stat-info">
+              <h4>Reunioes Diarias (Execucao)</h4>
+              <div class="value">22</div>
+              <div class="change">realizadas este mes</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon green">&#128197;</div>
+            <div class="stat-info">
+              <h4>Reunioes Semanais (Produto)</h4>
+              <div class="value">4</div>
+              <div class="change">realizadas este mes</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon orange">&#128197;</div>
+            <div class="stat-info">
+              <h4>Reunioes Mensais (Coord. Geral)</h4>
+              <div class="value">1</div>
+              <div class="change">proxima: 15/03/2026</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-2 mb-24">
+          <!-- Calendar -->
+          <div class="card">
+            <div class="card-header">
+              <h3>Calendario - Marco 2026</h3>
+              <div class="flex-gap-8">
+                <button class="btn btn-sm btn-secondary">&laquo; Fev</button>
+                <button class="btn btn-sm btn-secondary">Abr &raquo;</button>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="calendar-grid">
+                <div class="day-header">Dom</div><div class="day-header">Seg</div><div class="day-header">Ter</div>
+                <div class="day-header">Qua</div><div class="day-header">Qui</div><div class="day-header">Sex</div>
+                <div class="day-header">Sab</div>
+                <div class="day other-month">1</div>
+                <div class="day has-event">2</div><div class="day">3</div><div class="day has-event">4</div>
+                <div class="day">5</div><div class="day has-event">6</div><div class="day other-month">7</div>
+                <div class="day other-month">8</div>
+                <div class="day today has-event">9</div><div class="day has-event">10</div><div class="day">11</div>
+                <div class="day has-event">12</div><div class="day">13</div><div class="day other-month">14</div>
+                <div class="day other-month">15</div>
+                <div class="day has-event">16</div><div class="day">17</div><div class="day has-event">18</div>
+                <div class="day">19</div><div class="day">20</div><div class="day other-month">21</div>
+                <div class="day other-month">22</div>
+                <div class="day has-event">23</div><div class="day">24</div><div class="day">25</div>
+                <div class="day has-event">26</div><div class="day">27</div><div class="day other-month">28</div>
+                <div class="day other-month">29</div>
+                <div class="day">30</div><div class="day">31</div><div class="day"></div>
+                <div class="day"></div><div class="day"></div><div class="day"></div>
+              </div>
+              <div style="margin-top:16px">
+                <div class="flex-gap-8 text-xs mb-16">
+                  <span style="width:10px;height:10px;background:var(--primary);border-radius:50%;display:inline-block"></span> Hoje
+                  <span style="width:10px;height:10px;background:var(--accent);border-radius:50%;display:inline-block;margin-left:10px"></span> Evento agendado
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Upcoming Meetings -->
+          <div class="card">
+            <div class="card-header">
+              <h3>Proximas Reunioes</h3>
+              <button class="btn btn-sm btn-primary" onclick="openModal('modalNovaReuniao')">+ Agendar</button>
+            </div>
+            <div class="card-body" style="padding:0">
+              <div class="list-item">
+                <div class="list-icon" style="background:#dbeafe;color:var(--primary)">D</div>
+                <div class="list-info">
+                  <h5>Reuniao Diaria - Execucao</h5>
+                  <p>Hoje, 09/03/2026 - 08:30 | Sala Virtual 01</p>
+                </div>
+                <span class="badge badge-success">Realizada</span>
+              </div>
+              <div class="list-item">
+                <div class="list-icon" style="background:#d1fae5;color:#059669">S</div>
+                <div class="list-info">
+                  <h5>Reuniao Semanal - Produto</h5>
+                  <p>10/03/2026 - 10:00 | Sala de Reunioes 3</p>
+                </div>
+                <span class="badge badge-warning">Pendente</span>
+              </div>
+              <div class="list-item">
+                <div class="list-icon" style="background:#fef3c7;color:#d97706">M</div>
+                <div class="list-info">
+                  <h5>Coordenacao Geral Mensal</h5>
+                  <p>15/03/2026 - 14:00 | Auditorio Principal</p>
+                </div>
+                <span class="badge badge-info">Confirmada</span>
+              </div>
+              <div class="list-item">
+                <div class="list-icon" style="background:#dbeafe;color:var(--primary)">D</div>
+                <div class="list-info">
+                  <h5>Reuniao Diaria - Execucao</h5>
+                  <p>10/03/2026 - 08:30 | Sala Virtual 01</p>
+                </div>
+                <span class="badge badge-gray">Agendada</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Atas Repository -->
+        <div class="card">
+          <div class="card-header">
+            <h3>Repositorio de Atas e Tratativas</h3>
+            <div class="flex-gap-8">
+              <input type="text" class="form-control" placeholder="Buscar atas..." style="width:220px">
+              <button class="btn btn-sm btn-primary">+ Nova Ata</button>
+            </div>
+          </div>
+          <div class="card-body" style="padding:0">
+            <table>
+              <thead>
+                <tr><th>Tipo</th><th>Data</th><th>Titulo</th><th>Participantes</th><th>Status</th><th>Acoes</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><span class="badge badge-info">Ata</span></td>
+                  <td>08/03/2026</td>
+                  <td>Reuniao Semanal - Produto #9</td>
+                  <td>J. Carlos, M. Silva, A. Souza</td>
+                  <td><span class="badge badge-success">Aprovada</span></td>
+                  <td><button class="btn btn-sm btn-secondary">Abrir</button></td>
+                </tr>
+                <tr>
+                  <td><span class="badge badge-warning">Oficio</span></td>
+                  <td>07/03/2026</td>
+                  <td>OF-032/2026 - Solicitacao de Prorrogacao</td>
+                  <td>Fiscalizacao, Gestao</td>
+                  <td><span class="badge badge-warning">Pendente</span></td>
+                  <td><button class="btn btn-sm btn-secondary">Abrir</button></td>
+                </tr>
+                <tr>
+                  <td><span class="badge badge-gray">E-mail</span></td>
+                  <td>06/03/2026</td>
+                  <td>RE: Esclarecimentos Produto 05</td>
+                  <td>M. Silva, Fiscalizacao</td>
+                  <td><span class="badge badge-success">Respondido</span></td>
+                  <td><button class="btn btn-sm btn-secondary">Abrir</button></td>
+                </tr>
+                <tr>
+                  <td><span class="badge badge-info">Ata</span></td>
+                  <td>05/03/2026</td>
+                  <td>Coordenacao Geral - Fev/2026</td>
+                  <td>Equipe Completa</td>
+                  <td><span class="badge badge-success">Aprovada</span></td>
+                  <td><button class="btn btn-sm btn-secondary">Abrir</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================== -->
+      <!-- PAGE: EQUIPE                   -->
+      <!-- ============================== -->
+      <section class="page-section" id="page-equipe">
+        <div class="stats-grid mb-24">
+          <div class="stat-card">
+            <div class="stat-icon blue">&#128101;</div>
+            <div class="stat-info">
+              <h4>Total Colaboradores</h4>
+              <div class="value">47</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon green">&#127970;</div>
+            <div class="stat-info">
+              <h4>Regime Presencial</h4>
+              <div class="value">34</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon orange">&#128187;</div>
+            <div class="stat-info">
+              <h4>Regime Remoto</h4>
+              <div class="value">13</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon red">&#128176;</div>
+            <div class="stat-info">
+              <h4>Orcamento Equipe</h4>
+              <div class="value">R$ 485k</div>
+              <div class="change">de R$ 520k referencial</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex-between mb-20">
+          <div class="pill-nav">
+            <span class="pill active">Todos</span>
+            <span class="pill">Presencial</span>
+            <span class="pill">Remoto</span>
+            <span class="pill">Por Funcao</span>
+          </div>
+          <button class="btn btn-primary" onclick="openModal('modalNovoColaborador')">+ Novo Colaborador</button>
+        </div>
+
+        <div class="card mb-24">
+          <div class="card-header">
+            <h3>Quadro de Colaboradores</h3>
+            <input type="text" class="form-control" placeholder="Buscar colaborador..." style="width:220px">
+          </div>
+          <div class="card-body" style="padding:0">
+            <table>
+              <thead>
+                <tr><th>Nome</th><th>Funcao / Cargo</th><th>Regime</th><th>Posto</th><th>Salario Base</th><th>Piso Cat.</th><th>Status</th><th>Acoes</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><div class="flex-gap-8"><div style="width:30px;height:30px;border-radius:50%;background:var(--primary);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600">JC</div> Joao Carlos</div></td>
+                  <td>Gerente de Contrato</td><td><span class="badge badge-info">Presencial</span></td>
+                  <td>Posto 01 - Sede</td><td>R$ 18.500</td><td>R$ 15.000</td>
+                  <td><span class="badge badge-success">Ativo</span></td>
+                  <td><button class="btn btn-sm btn-secondary">Editar</button></td>
+                </tr>
+                <tr>
+                  <td><div class="flex-gap-8"><div style="width:30px;height:30px;border-radius:50%;background:#059669;color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600">MS</div> Maria Silva</div></td>
+                  <td>Engenheira Civil Sr.</td><td><span class="badge badge-info">Presencial</span></td>
+                  <td>Posto 02 - UL Norte</td><td>R$ 14.200</td><td>R$ 12.500</td>
+                  <td><span class="badge badge-success">Ativo</span></td>
+                  <td><button class="btn btn-sm btn-secondary">Editar</button></td>
+                </tr>
+                <tr>
+                  <td><div class="flex-gap-8"><div style="width:30px;height:30px;border-radius:50%;background:#d97706;color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600">AS</div> Ana Souza</div></td>
+                  <td>Analista Ambiental</td><td><span class="badge badge-warning">Remoto</span></td>
+                  <td>Remoto - Home Office</td><td>R$ 9.800</td><td>R$ 8.500</td>
+                  <td><span class="badge badge-success">Ativo</span></td>
+                  <td><button class="btn btn-sm btn-secondary">Editar</button></td>
+                </tr>
+                <tr>
+                  <td><div class="flex-gap-8"><div style="width:30px;height:30px;border-radius:50%;background:#7c3aed;color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600">PL</div> Pedro Lima</div></td>
+                  <td>Tecnico em Estradas</td><td><span class="badge badge-info">Presencial</span></td>
+                  <td>Posto 03 - UL Sul</td><td>R$ 7.200</td><td>R$ 6.800</td>
+                  <td><span class="badge badge-success">Ativo</span></td>
+                  <td><button class="btn btn-sm btn-secondary">Editar</button></td>
+                </tr>
+                <tr>
+                  <td><div class="flex-gap-8"><div style="width:30px;height:30px;border-radius:50%;background:#dc2626;color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600">RF</div> Ricardo Ferreira</div></td>
+                  <td>Engenheiro Eletricista</td><td><span class="badge badge-warning">Remoto</span></td>
+                  <td>Remoto - Home Office</td><td>R$ 12.800</td><td>R$ 12.500</td>
+                  <td><span class="badge badge-warning">Em Mobilizacao</span></td>
+                  <td><button class="btn btn-sm btn-secondary">Editar</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="card-footer">
+            <div class="flex-between">
+              <span class="text-sm text-muted">Exibindo 5 de 47 colaboradores</span>
+              <div class="flex-gap-8">
+                <button class="btn btn-sm btn-secondary">&laquo; Anterior</button>
+                <button class="btn btn-sm btn-primary">1</button>
+                <button class="btn btn-sm btn-secondary">2</button>
+                <button class="btn btn-sm btn-secondary">3</button>
+                <button class="btn btn-sm btn-secondary">Proximo &raquo;</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Controle de Postos -->
+        <div class="card">
+          <div class="card-header"><h3>Controle de Postos de Trabalho</h3></div>
+          <div class="card-body" style="padding:0">
+            <table>
+              <thead>
+                <tr><th>Posto</th><th>Localizacao</th><th>Capacidade</th><th>Ocupacao</th><th>Orcamento Ref.</th><th>Custo Atual</th><th>Status</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Posto 01</strong></td><td>Sede - Brasilia/DF</td><td>20</td>
+                  <td>
+                    <div class="flex-gap-8">18 <div class="progress" style="width:80px"><div class="progress-bar green" style="width:90%"></div></div></div>
+                  </td>
+                  <td>R$ 180.000</td><td>R$ 172.500</td>
+                  <td><span class="badge badge-success">Dentro</span></td>
+                </tr>
+                <tr>
+                  <td><strong>Posto 02</strong></td><td>UL Norte - Belem/PA</td><td>10</td>
+                  <td>
+                    <div class="flex-gap-8">9 <div class="progress" style="width:80px"><div class="progress-bar orange" style="width:90%"></div></div></div>
+                  </td>
+                  <td>R$ 95.000</td><td>R$ 93.200</td>
+                  <td><span class="badge badge-warning">Proximo Limite</span></td>
+                </tr>
+                <tr>
+                  <td><strong>Posto 03</strong></td><td>UL Sul - Curitiba/PR</td><td>8</td>
+                  <td>
+                    <div class="flex-gap-8">7 <div class="progress" style="width:80px"><div class="progress-bar blue" style="width:87%"></div></div></div>
+                  </td>
+                  <td>R$ 76.000</td><td>R$ 68.400</td>
+                  <td><span class="badge badge-success">Dentro</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================== -->
+      <!-- PAGE: MEDICAO                  -->
+      <!-- ============================== -->
+      <section class="page-section" id="page-medicao">
+        <div class="tabs" id="tabsMedicao">
+          <div class="tab active" onclick="switchTab('tabsMedicao','tabMedicaoCalc')">Calculo de Medicao</div>
+          <div class="tab" onclick="switchTab('tabsMedicao','tabMedicaoChecklist')">Checklist Documentos</div>
+          <div class="tab" onclick="switchTab('tabsMedicao','tabMedicaoHistorico')">Historico de Medicoes</div>
+        </div>
+
+        <!-- Tab: Calculo -->
+        <div class="tab-content active" id="tabMedicaoCalc">
+          <div class="alert alert-info mb-20">
+            &#9432; <div>O calculo de medicao segue a formula do TR: <strong>Vm = Pu x Qc</strong> (Valor da Medicao = Preco Unitario x Quantidade de Contratos vigentes). Preencha os valores abaixo para simular.</div>
+          </div>
+
+          <div class="grid-2 mb-24">
+            <div class="card">
+              <div class="card-header"><h3>Simulador de Medicao - Produto 02</h3></div>
+              <div class="card-body">
+                <div class="form-group">
+                  <label>Produto</label>
+                  <select class="form-control" id="calcProduto">
+                    <option>P02 - Apoio ao Planejamento</option>
+                    <option>P03 - Gestao de Infraestrutura</option>
+                    <option>P04 - Apoio a Fiscalizacao</option>
+                  </select>
+                </div>
+                <div class="grid-2">
+                  <div class="form-group">
+                    <label>Preco Unitario (Pu) - R$</label>
+                    <input type="number" class="form-control" id="calcPu" value="4500" onkeyup="calcMedicao()">
+                  </div>
+                  <div class="form-group">
+                    <label>Qtd. Contratos Vigentes (Qc)</label>
+                    <input type="number" class="form-control" id="calcQc" value="12" onkeyup="calcMedicao()">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label>Fator de Ajuste IMR (%)</label>
+                  <input type="number" class="form-control" id="calcImr" value="100" onkeyup="calcMedicao()">
+                </div>
+                <button class="btn btn-primary w-full" onclick="calcMedicao()">Calcular Medicao</button>
+                <div style="margin-top:16px;padding:16px;background:var(--gray-50);border-radius:var(--radius);text-align:center">
+                  <div class="text-sm text-muted">Valor da Medicao (Vm)</div>
+                  <div style="font-size:28px;font-weight:700;color:var(--primary)" id="calcResult">R$ 54.000,00</div>
+                  <div class="text-xs text-muted mt-16">Vm = R$ 4.500 x 12 contratos x 100%</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header"><h3>Resumo Mensal - Marco/2026</h3></div>
+              <div class="card-body" style="padding:0">
+                <table>
+                  <thead><tr><th>Produto</th><th>Vm Base</th><th>Ajuste IMR</th><th>Valor Final</th></tr></thead>
+                  <tbody>
+                    <tr><td>P01 - Relatorio Mensal</td><td>R$ 32.000</td><td>100%</td><td><strong>R$ 32.000</strong></td></tr>
+                    <tr><td>P02 - Apoio Planejamento</td><td>R$ 54.000</td><td>85%</td><td><strong>R$ 45.900</strong></td></tr>
+                    <tr><td>P03 - Gestao Infraestrutura</td><td>R$ 48.500</td><td>100%</td><td><strong>R$ 48.500</strong></td></tr>
+                    <tr><td>P04 - Apoio Fiscalizacao</td><td>R$ 38.000</td><td>100%</td><td><strong>R$ 38.000</strong></td></tr>
+                    <tr><td>P05 - Controle Qualidade</td><td>R$ 28.000</td><td>92%</td><td><strong>R$ 25.760</strong></td></tr>
+                    <tr style="background:var(--gray-50);font-weight:700">
+                      <td>TOTAL</td><td>R$ 200.500</td><td>--</td><td style="color:var(--primary);font-size:16px">R$ 190.160</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab: Checklist -->
+        <div class="tab-content" id="tabMedicaoChecklist">
+          <div class="grid-2">
+            <div class="card">
+              <div class="card-header"><h3>Checklist - Medicao Marco/2026</h3></div>
+              <div class="card-body">
+                <div class="checklist-item checked"><input type="checkbox" checked><span>Declaracao de Responsabilidade Tecnica</span></div>
+                <div class="checklist-item checked"><input type="checkbox" checked><span>Relatorio de Atividades do Periodo</span></div>
+                <div class="checklist-item checked"><input type="checkbox" checked><span>Planilha de Medicao Preenchida</span></div>
+                <div class="checklist-item"><input type="checkbox"><span>Notas Fiscais de Despesas Reembolsaveis</span></div>
+                <div class="checklist-item"><input type="checkbox"><span>Comprovantes de Pagamento de Equipe</span></div>
+                <div class="checklist-item"><input type="checkbox"><span>Relatorio de IMR Assinado</span></div>
+                <div class="checklist-item"><input type="checkbox"><span>Atas de Reuniao do Periodo</span></div>
+                <div class="checklist-item"><input type="checkbox"><span>Fotos e Registros de Campo</span></div>
+                <div class="checklist-item"><input type="checkbox"><span>Memoria de Calculo Detalhada</span></div>
+                <div class="checklist-item"><input type="checkbox"><span>Aprovacao da Fiscalizacao</span></div>
+              </div>
+              <div class="card-footer">
+                <div class="flex-between">
+                  <span class="text-sm"><strong>3 de 10</strong> documentos concluidos</span>
+                  <div class="progress" style="width:120px"><div class="progress-bar orange" style="width:30%"></div></div>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header"><h3>Upload de Documentos</h3></div>
+              <div class="card-body">
+                <div style="border:2px dashed var(--gray-300);border-radius:var(--radius);padding:40px;text-align:center;color:var(--gray-500)">
+                  <div style="font-size:36px;margin-bottom:8px">&#128206;</div>
+                  <div style="font-size:14px;font-weight:500;margin-bottom:4px">Arraste arquivos aqui</div>
+                  <div class="text-xs">ou clique para selecionar (PDF, DOC, XLS)</div>
+                  <button class="btn btn-sm btn-primary" style="margin-top:12px">Selecionar Arquivos</button>
+                </div>
+                <div style="margin-top:16px">
+                  <div class="list-item">
+                    <div class="list-icon" style="background:#fee2e2;color:#dc2626">PDF</div>
+                    <div class="list-info">
+                      <h5>declaracao_responsabilidade.pdf</h5>
+                      <p>Enviado em 08/03/2026 - 245 KB</p>
+                    </div>
+                    <span class="badge badge-success">Aprovado</span>
+                  </div>
+                  <div class="list-item">
+                    <div class="list-icon" style="background:#dbeafe;color:var(--primary)">XLS</div>
+                    <div class="list-info">
+                      <h5>planilha_medicao_mar2026.xlsx</h5>
+                      <p>Enviado em 08/03/2026 - 1.2 MB</p>
+                    </div>
+                    <span class="badge badge-warning">Em Analise</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab: Historico -->
+        <div class="tab-content" id="tabMedicaoHistorico">
+          <div class="card">
+            <div class="card-header"><h3>Historico de Medicoes</h3></div>
+            <div class="card-body" style="padding:0">
+              <table>
+                <thead>
+                  <tr><th>Periodo</th><th>Valor Bruto</th><th>Ajuste IMR</th><th>Valor Liquido</th><th>Status</th><th>Data Pagamento</th><th>Acoes</th></tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Marco/2026</strong></td><td>R$ 200.500</td><td>-R$ 10.340</td><td><strong>R$ 190.160</strong></td>
+                    <td><span class="badge badge-warning">Em Processamento</span></td><td>--</td>
+                    <td><button class="btn btn-sm btn-primary">Detalhes</button></td>
+                  </tr>
+                  <tr>
+                    <td>Fevereiro/2026</td><td>R$ 198.200</td><td>-R$ 5.946</td><td><strong>R$ 192.254</strong></td>
+                    <td><span class="badge badge-success">Pago</span></td><td>28/02/2026</td>
+                    <td><button class="btn btn-sm btn-secondary">Ver</button></td>
+                  </tr>
+                  <tr>
+                    <td>Janeiro/2026</td><td>R$ 195.800</td><td>-R$ 7.832</td><td><strong>R$ 187.968</strong></td>
+                    <td><span class="badge badge-success">Pago</span></td><td>30/01/2026</td>
+                    <td><button class="btn btn-sm btn-secondary">Ver</button></td>
+                  </tr>
+                  <tr>
+                    <td>Dezembro/2025</td><td>R$ 192.400</td><td>-R$ 3.848</td><td><strong>R$ 188.552</strong></td>
+                    <td><span class="badge badge-success">Pago</span></td><td>28/12/2025</td>
+                    <td><button class="btn btn-sm btn-secondary">Ver</button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================== -->
+      <!-- PAGE: IMR                      -->
+      <!-- ============================== -->
+      <section class="page-section" id="page-imr">
+        <div class="stats-grid mb-24">
+          <div class="stat-card">
+            <div class="stat-icon green">&#9733;</div>
+            <div class="stat-info">
+              <h4>NDG Atual</h4>
+              <div class="value">85</div>
+              <div class="change up">&#9650; +3 vs. mes anterior</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon orange">&#9888;</div>
+            <div class="stat-info">
+              <h4>Deducoes no Mes</h4>
+              <div class="value">-15</div>
+              <div class="change down">3 ocorrencias</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon blue">&#128200;</div>
+            <div class="stat-info">
+              <h4>Media 3 Meses</h4>
+              <div class="value">83.7</div>
+              <div class="change">Tendencia estavel</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon red">&#128680;</div>
+            <div class="stat-info">
+              <h4>Alertas Ativos</h4>
+              <div class="value">1</div>
+              <div class="change down">Produto 05 abaixo de 80</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-2 mb-24">
+          <!-- NDG Calculator -->
+          <div class="card">
+            <div class="card-header"><h3>Calculadora NDG - Marco/2026</h3></div>
+            <div class="card-body">
+              <div class="flex-center mb-20">
+                <div class="score-circle score-high">
+                  <div class="score-inner">
+                    <span style="font-size:36px;font-weight:700;color:var(--success)">85</span>
+                    <span class="label">NDG Pontos</span>
+                  </div>
+                </div>
+              </div>
+              <div style="text-align:center;margin-bottom:20px">
+                <span class="badge badge-success" style="font-size:13px;padding:6px 16px">Desempenho Satisfatorio</span>
+              </div>
+              <table>
+                <thead><tr><th>Criterio / Falha</th><th>Deducao</th><th>Pontuacao</th></tr></thead>
+                <tbody>
+                  <tr><td>Pontuacao Inicial</td><td>--</td><td><strong>100</strong></td></tr>
+                  <tr><td>Atraso entrega P02 (2 dias)</td><td style="color:var(--danger)">-5</td><td>95</td></tr>
+                  <tr><td>Inconsistencia dados P05</td><td style="color:var(--danger)">-8</td><td>87</td></tr>
+                  <tr><td>Falha comunicacao UL Norte</td><td style="color:var(--danger)">-2</td><td>85</td></tr>
+                  <tr style="background:var(--gray-50);font-weight:700">
+                    <td>NOTA FINAL (NDG)</td><td>-15</td><td style="color:var(--success);font-size:16px">85</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Risk Alerts -->
+          <div class="card">
+            <div class="card-header"><h3>Alertas de Risco e Historico</h3></div>
+            <div class="card-body">
+              <div class="alert alert-danger">
+                &#128680; <div><strong>Atencao:</strong> Produto 05 acumulou <strong>2 meses consecutivos</strong> com notas abaixo de 80. Uma terceira incidencia podera resultar em notificacao formal.</div>
+              </div>
+              <div class="alert alert-warning">
+                &#9888; <div><strong>Alerta:</strong> Se NDG ficar abaixo de 50 pontos, ha risco de <strong>rescisao contratual</strong> conforme clausulas do TR.</div>
+              </div>
+              <div class="alert alert-success">
+                &#10003; <div><strong>Positivo:</strong> Produtos 01, 03, 06 mantiveram nota maxima nos ultimos 3 meses.</div>
+              </div>
+
+              <h4 style="font-size:14px;margin:16px 0 12px">Historico NDG (ultimos 6 meses)</h4>
+              <table>
+                <thead><tr><th>Mes</th><th>NDG</th><th>Deducoes</th><th>Classificacao</th></tr></thead>
+                <tbody>
+                  <tr><td>Mar/2026</td><td><strong>85</strong></td><td>-15</td><td><span class="badge badge-success">Satisfatorio</span></td></tr>
+                  <tr><td>Fev/2026</td><td><strong>82</strong></td><td>-18</td><td><span class="badge badge-success">Satisfatorio</span></td></tr>
+                  <tr><td>Jan/2026</td><td><strong>78</strong></td><td>-22</td><td><span class="badge badge-warning">Atencao</span></td></tr>
+                  <tr><td>Dez/2025</td><td><strong>88</strong></td><td>-12</td><td><span class="badge badge-success">Satisfatorio</span></td></tr>
+                  <tr><td>Nov/2025</td><td><strong>91</strong></td><td>-9</td><td><span class="badge badge-success">Excelente</span></td></tr>
+                  <tr><td>Out/2025</td><td><strong>86</strong></td><td>-14</td><td><span class="badge badge-success">Satisfatorio</span></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Plano de Acao -->
+        <div class="card">
+          <div class="card-header">
+            <h3>Plano de Acao Corretiva</h3>
+            <button class="btn btn-sm btn-primary">+ Nova Acao</button>
+          </div>
+          <div class="card-body" style="padding:0">
+            <table>
+              <thead>
+                <tr><th>ID</th><th>Falha Associada</th><th>Acao Corretiva</th><th>Responsavel</th><th>Prazo</th><th>Status</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>#AC-01</td><td>Atraso entrega P02</td>
+                  <td>Reforcar equipe de planejamento com 2 analistas adicionais</td>
+                  <td>Maria Silva</td><td>15/03/2026</td>
+                  <td><span class="badge badge-warning">Em Andamento</span></td>
+                </tr>
+                <tr>
+                  <td>#AC-02</td><td>Inconsistencia P05</td>
+                  <td>Implementar dupla checagem de dados antes do envio</td>
+                  <td>Pedro Lima</td><td>12/03/2026</td>
+                  <td><span class="badge badge-success">Concluida</span></td>
+                </tr>
+                <tr>
+                  <td>#AC-03</td><td>Falha comunicacao UL Norte</td>
+                  <td>Estabelecer canal direto via Teams com reunioes diarias</td>
+                  <td>Ana Souza</td><td>10/03/2026</td>
+                  <td><span class="badge badge-success">Concluida</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================== -->
+      <!-- PAGE: DOCUMENTOS               -->
+      <!-- ============================== -->
+      <section class="page-section" id="page-documentos">
+        <div class="tabs" id="tabsDocs">
+          <div class="tab active" onclick="switchTab('tabsDocs','tabDocsRepo')">Repositorio de Documentos</div>
+          <div class="tab" onclick="switchTab('tabsDocs','tabDocsMalha')">Malha Rodoviaria</div>
+          <div class="tab" onclick="switchTab('tabsDocs','tabDocsSEI')">Integracao SEI</div>
+        </div>
+
+        <!-- Tab: Repositorio -->
+        <div class="tab-content active" id="tabDocsRepo">
+          <div class="flex-between mb-20">
+            <div class="flex-gap-8">
+              <input type="text" class="form-control" placeholder="Buscar documentos..." style="width:280px">
+              <select class="form-control" style="width:160px">
+                <option>Todos os Tipos</option>
+                <option>Relatorios</option>
+                <option>Oficios</option>
+                <option>Atas</option>
+                <option>Laudos</option>
+                <option>Notas Fiscais</option>
+              </select>
+            </div>
+            <button class="btn btn-primary">+ Upload Documento</button>
+          </div>
+
+          <div class="card">
+            <div class="card-body" style="padding:0">
+              <table>
+                <thead>
+                  <tr><th>Tipo</th><th>Nome do Documento</th><th>Categoria</th><th>Data</th><th>Tamanho</th><th>SEI</th><th>Acoes</th></tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span style="color:#dc2626;font-weight:600">PDF</span></td>
+                    <td>Relatorio_Mensal_Fev2026.pdf</td>
+                    <td><span class="badge badge-info">Relatorio</span></td>
+                    <td>28/02/2026</td><td>4.2 MB</td>
+                    <td><span class="badge badge-success">Vinculado</span></td>
+                    <td><div class="flex-gap-8"><button class="btn btn-sm btn-secondary">Baixar</button><button class="btn btn-sm btn-secondary">SEI</button></div></td>
+                  </tr>
+                  <tr>
+                    <td><span style="color:var(--primary);font-weight:600">DOC</span></td>
+                    <td>Ata_Reuniao_Semanal_09.docx</td>
+                    <td><span class="badge badge-gray">Ata</span></td>
+                    <td>08/03/2026</td><td>320 KB</td>
+                    <td><span class="badge badge-warning">Pendente</span></td>
+                    <td><div class="flex-gap-8"><button class="btn btn-sm btn-secondary">Baixar</button><button class="btn btn-sm btn-primary">Vincular</button></div></td>
+                  </tr>
+                  <tr>
+                    <td><span style="color:#059669;font-weight:600">XLS</span></td>
+                    <td>Planilha_Medicao_Mar2026.xlsx</td>
+                    <td><span class="badge badge-warning">Medicao</span></td>
+                    <td>09/03/2026</td><td>1.8 MB</td>
+                    <td><span class="badge badge-gray">N/A</span></td>
+                    <td><div class="flex-gap-8"><button class="btn btn-sm btn-secondary">Baixar</button></div></td>
+                  </tr>
+                  <tr>
+                    <td><span style="color:#dc2626;font-weight:600">PDF</span></td>
+                    <td>Laudo_Tecnico_Vistoria_BR101.pdf</td>
+                    <td><span class="badge badge-danger">Laudo</span></td>
+                    <td>05/03/2026</td><td>8.5 MB</td>
+                    <td><span class="badge badge-success">Vinculado</span></td>
+                    <td><div class="flex-gap-8"><button class="btn btn-sm btn-secondary">Baixar</button><button class="btn btn-sm btn-secondary">SEI</button></div></td>
+                  </tr>
+                  <tr>
+                    <td><span style="color:#dc2626;font-weight:600">PDF</span></td>
+                    <td>OF-032_Solicitacao_Prorrogacao.pdf</td>
+                    <td><span class="badge badge-warning">Oficio</span></td>
+                    <td>07/03/2026</td><td>156 KB</td>
+                    <td><span class="badge badge-success">Vinculado</span></td>
+                    <td><div class="flex-gap-8"><button class="btn btn-sm btn-secondary">Baixar</button><button class="btn btn-sm btn-secondary">SEI</button></div></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="card-footer">
+              <div class="flex-between">
+                <span class="text-sm text-muted">Armazenamento: 2.4 GB de 10 GB utilizados</span>
+                <div class="progress" style="width:200px"><div class="progress-bar blue" style="width:24%"></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab: Malha Rodoviaria -->
+        <div class="tab-content" id="tabDocsMalha">
+          <div class="alert alert-info mb-20">
+            &#9432; <div>Base de dados da malha rodoviaria federal sob jurisdicao, incluindo segmentos, trechos e extensoes para suporte as Unidades Locais.</div>
+          </div>
+          <div class="card mb-24">
+            <div class="card-header">
+              <h3>Segmentos Rodoviarios</h3>
+              <div class="flex-gap-8">
+                <select class="form-control" style="width:160px">
+                  <option>Todas ULs</option>
+                  <option>UL Norte</option>
+                  <option>UL Sul</option>
+                  <option>UL Nordeste</option>
+                </select>
+                <button class="btn btn-sm btn-primary">Exportar</button>
+              </div>
+            </div>
+            <div class="card-body" style="padding:0">
+              <table>
+                <thead>
+                  <tr><th>Rodovia</th><th>Trecho</th><th>Segmento</th><th>Extensao (km)</th><th>UL Responsavel</th><th>Situacao</th><th>Ultima Vistoria</th></tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>BR-101</strong></td><td>Div. ES/BA - Itabuna</td><td>Seg. 01 - km 0 a 85</td>
+                    <td>85,3</td><td>UL Sul</td>
+                    <td><span class="badge badge-success">Regular</span></td><td>05/03/2026</td>
+                  </tr>
+                  <tr>
+                    <td><strong>BR-101</strong></td><td>Itabuna - Ilheus</td><td>Seg. 02 - km 85 a 140</td>
+                    <td>54,7</td><td>UL Sul</td>
+                    <td><span class="badge badge-warning">Atencao</span></td><td>02/03/2026</td>
+                  </tr>
+                  <tr>
+                    <td><strong>BR-316</strong></td><td>Belem - Capanema</td><td>Seg. 01 - km 0 a 120</td>
+                    <td>120,0</td><td>UL Norte</td>
+                    <td><span class="badge badge-success">Regular</span></td><td>04/03/2026</td>
+                  </tr>
+                  <tr>
+                    <td><strong>BR-316</strong></td><td>Capanema - Santa Maria</td><td>Seg. 02 - km 120 a 210</td>
+                    <td>90,0</td><td>UL Norte</td>
+                    <td><span class="badge badge-danger">Critico</span></td><td>01/03/2026</td>
+                  </tr>
+                  <tr>
+                    <td><strong>BR-376</strong></td><td>Curitiba - Ponta Grossa</td><td>Seg. 01 - km 0 a 115</td>
+                    <td>115,2</td><td>UL Sul</td>
+                    <td><span class="badge badge-success">Regular</span></td><td>06/03/2026</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="card-footer">
+              <div class="flex-between">
+                <span class="text-sm text-muted">Total: 465,2 km sob jurisdicao | 5 segmentos em 3 rodovias</span>
+                <button class="btn btn-sm btn-secondary">Ver Mapa</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab: SEI -->
+        <div class="tab-content" id="tabDocsSEI">
+          <div class="grid-2">
+            <div class="card">
+              <div class="card-header"><h3>Integracao com Sistema SEI</h3></div>
+              <div class="card-body">
+                <div class="alert alert-success">&#10003; <div><strong>Conectado:</strong> Sistema SEI integrado e funcionando corretamente.</div></div>
+                <div class="form-group">
+                  <label>Numero do Processo SEI</label>
+                  <input type="text" class="form-control" placeholder="Ex: 50600.012345/2026-00">
+                </div>
+                <div class="form-group">
+                  <label>Tipo de Documento</label>
+                  <select class="form-control">
+                    <option>Selecione...</option>
+                    <option>Oficio</option>
+                    <option>Relatorio</option>
+                    <option>Nota Tecnica</option>
+                    <option>Despacho</option>
+                  </select>
+                </div>
+                <button class="btn btn-primary w-full">Buscar no SEI</button>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header"><h3>Documentos Vinculados ao SEI</h3></div>
+              <div class="card-body" style="padding:0">
+                <div class="list-item">
+                  <div class="list-icon" style="background:#d1fae5;color:#059669">&#10003;</div>
+                  <div class="list-info">
+                    <h5>Proc. 50600.012345/2026-00</h5>
+                    <p>3 documentos vinculados</p>
+                  </div>
+                  <button class="btn btn-sm btn-secondary">Abrir</button>
+                </div>
+                <div class="list-item">
+                  <div class="list-icon" style="background:#d1fae5;color:#059669">&#10003;</div>
+                  <div class="list-info">
+                    <h5>Proc. 50600.045678/2026-00</h5>
+                    <p>5 documentos vinculados</p>
+                  </div>
+                  <button class="btn btn-sm btn-secondary">Abrir</button>
+                </div>
+                <div class="list-item">
+                  <div class="list-icon" style="background:#fef3c7;color:#d97706">&#8987;</div>
+                  <div class="list-info">
+                    <h5>Proc. 50600.078901/2026-00</h5>
+                    <p>Pendente vinculacao</p>
+                  </div>
+                  <button class="btn btn-sm btn-primary">Vincular</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================== -->
+      <!-- PAGE: RELATORIO                -->
+      <!-- ============================== -->
+      <section class="page-section" id="page-relatorio">
+        <div class="flex-between mb-20">
+          <div>
+            <h3 style="font-size:16px;margin-bottom:4px">Relatorio de Atendimento Periodico</h3>
+            <p class="text-sm text-muted">Consolidacao das informacoes conforme Estrutura Minima exigida no TR</p>
+          </div>
+          <div class="flex-gap-8">
+            <select class="form-control" style="width:180px">
+              <option>Marco/2026</option>
+              <option>Fevereiro/2026</option>
+              <option>Janeiro/2026</option>
+            </select>
+            <button class="btn btn-success" onclick="openModal('modalGerarRelatorio')">&#128196; Gerar Relatorio</button>
+            <button class="btn btn-secondary">Exportar PDF</button>
+          </div>
+        </div>
+
+        <!-- Secoes do Relatorio -->
+        <div class="card mb-20">
+          <div class="card-header"><h3>1. Identificacao</h3><span class="badge badge-success">Completo</span></div>
+          <div class="card-body">
+            <div class="grid-2">
+              <div>
+                <div class="form-group">
+                  <label>Titulo do Relatorio</label>
+                  <input type="text" class="form-control" value="Relatorio de Atendimento - Marco/2026">
+                </div>
+                <div class="form-group">
+                  <label>Contrato de Assessoramento</label>
+                  <input type="text" class="form-control" value="Contrato nº 00XX/2025 - Assessoria Tecnica">
+                </div>
+              </div>
+              <div>
+                <div class="form-group">
+                  <label>Periodo de Referencia</label>
+                  <input type="text" class="form-control" value="01/03/2026 a 31/03/2026">
+                </div>
+                <div class="form-group">
+                  <label>Responsavel Tecnico</label>
+                  <input type="text" class="form-control" value="Joao Carlos - Gerente de Contrato">
+                </div>
+              </div>
+            </div>
+            <p class="text-xs text-muted" style="margin-top:8px">* Capa, contracapa e indice serao gerados automaticamente</p>
+          </div>
+        </div>
+
+        <div class="card mb-20">
+          <div class="card-header"><h3>2. Resumo de Atividades</h3><span class="badge badge-warning">Em Preenchimento</span></div>
+          <div class="card-body">
+            <p class="text-sm text-muted mb-16">Descricao dos servicos realizados no mes para cada produto:</p>
+            <div class="list-item" style="border:1px solid var(--gray-200);border-radius:var(--radius);margin-bottom:8px">
+              <div class="list-icon" style="background:var(--primary-light);color:var(--primary)">P01</div>
+              <div class="list-info" style="flex:1">
+                <h5>Relatorio Mensal de Atividades</h5>
+                <p>Consolidacao completa das atividades do periodo com 15 paginas de descricao detalhada.</p>
+              </div>
+              <span class="badge badge-success">Preenchido</span>
+            </div>
+            <div class="list-item" style="border:1px solid var(--gray-200);border-radius:var(--radius);margin-bottom:8px">
+              <div class="list-icon" style="background:var(--primary-light);color:var(--primary)">P02</div>
+              <div class="list-info" style="flex:1">
+                <h5>Apoio ao Planejamento</h5>
+                <p>Suporte tecnico a 12 contratos vigentes com acompanhamento de cronogramas.</p>
+              </div>
+              <span class="badge badge-success">Preenchido</span>
+            </div>
+            <div class="list-item" style="border:1px solid var(--gray-200);border-radius:var(--radius);margin-bottom:8px">
+              <div class="list-icon" style="background:var(--primary-light);color:var(--primary)">P03</div>
+              <div class="list-info" style="flex:1">
+                <h5>Gestao de Infraestrutura</h5>
+                <p>--</p>
+              </div>
+              <span class="badge badge-warning">Pendente</span>
+            </div>
+            <button class="btn btn-sm btn-secondary mt-16">+ Adicionar Atividade</button>
+          </div>
+        </div>
+
+        <div class="card mb-20">
+          <div class="card-header"><h3>3. Recursos Mobilizados</h3><span class="badge badge-success">Completo</span></div>
+          <div class="card-body">
+            <div class="grid-3 mb-16">
+              <div style="text-align:center;padding:16px;background:var(--gray-50);border-radius:var(--radius)">
+                <div style="font-size:28px;font-weight:700;color:var(--primary)">47</div>
+                <div class="text-sm text-muted">Equipe Tecnica Ativa</div>
+              </div>
+              <div style="text-align:center;padding:16px;background:var(--gray-50);border-radius:var(--radius)">
+                <div style="font-size:28px;font-weight:700;color:var(--primary)">12</div>
+                <div class="text-sm text-muted">Veiculos Utilizados</div>
+              </div>
+              <div style="text-align:center;padding:16px;background:var(--gray-50);border-radius:var(--radius)">
+                <div style="font-size:28px;font-weight:700;color:var(--primary)">8</div>
+                <div class="text-sm text-muted">Equipamentos em Uso</div>
+              </div>
+            </div>
+            <a onclick="navigateTo('equipe')" class="btn btn-sm btn-secondary">Ver Detalhes da Equipe</a>
+          </div>
+        </div>
+
+        <div class="card mb-20">
+          <div class="card-header"><h3>4. Gestao de Tratativas</h3><span class="badge badge-success">Completo</span></div>
+          <div class="card-body" style="padding:0">
+            <table>
+              <thead><tr><th>Tipo</th><th>Referencia</th><th>Descricao</th><th>Data</th><th>Resolucao</th></tr></thead>
+              <tbody>
+                <tr>
+                  <td><span class="badge badge-warning">Notificacao</span></td>
+                  <td>NOT-015/2026</td>
+                  <td>Atraso na entrega do Produto 02</td>
+                  <td>05/03/2026</td>
+                  <td><span class="badge badge-success">Resolvida</span></td>
+                </tr>
+                <tr>
+                  <td><span class="badge badge-info">Oficio</span></td>
+                  <td>OF-032/2026</td>
+                  <td>Solicitacao de prorrogacao de prazo</td>
+                  <td>07/03/2026</td>
+                  <td><span class="badge badge-warning">Em Analise</span></td>
+                </tr>
+                <tr>
+                  <td><span class="badge badge-gray">E-mail</span></td>
+                  <td>--</td>
+                  <td>Esclarecimentos sobre dados do P05</td>
+                  <td>06/03/2026</td>
+                  <td><span class="badge badge-success">Respondido</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="card mb-20">
+          <div class="card-header"><h3>5. Indicadores (IMR)</h3><span class="badge badge-success">Completo</span></div>
+          <div class="card-body">
+            <div class="grid-3 mb-16">
+              <div style="text-align:center;padding:16px;background:var(--gray-50);border-radius:var(--radius)">
+                <div style="font-size:28px;font-weight:700;color:var(--success)">85</div>
+                <div class="text-sm text-muted">NDG do Mes</div>
+              </div>
+              <div style="text-align:center;padding:16px;background:var(--gray-50);border-radius:var(--radius)">
+                <div style="font-size:28px;font-weight:700;color:var(--danger)">-15</div>
+                <div class="text-sm text-muted">Deducoes Aplicadas</div>
+              </div>
+              <div style="text-align:center;padding:16px;background:var(--gray-50);border-radius:var(--radius)">
+                <div style="font-size:28px;font-weight:700;color:var(--info)">3</div>
+                <div class="text-sm text-muted">Acoes Corretivas</div>
+              </div>
+            </div>
+            <a onclick="navigateTo('imr')" class="btn btn-sm btn-secondary">Ver Detalhes do IMR</a>
+          </div>
+        </div>
+
+        <div class="card mb-20">
+          <div class="card-header"><h3>6. Anexos Tecnicos</h3><span class="badge badge-warning">3 de 5 anexados</span></div>
+          <div class="card-body">
+            <div class="checklist-item checked"><input type="checkbox" checked><span>Memoria de calculo - Medicao Mar/2026</span></div>
+            <div class="checklist-item checked"><input type="checkbox" checked><span>Notas fiscais de despesas autorizadas</span></div>
+            <div class="checklist-item checked"><input type="checkbox" checked><span>Laudo tecnico - Vistoria BR-101</span></div>
+            <div class="checklist-item"><input type="checkbox"><span>Registro fotografico das vistorias</span></div>
+            <div class="checklist-item"><input type="checkbox"><span>ART / RRT dos servicos executados</span></div>
+          </div>
+        </div>
+
+        <!-- Preview do Status Geral do Relatorio -->
+        <div class="card" style="border-color:var(--primary)">
+          <div class="card-body" style="text-align:center;padding:24px">
+            <h3 style="margin-bottom:8px">Status Geral do Relatorio</h3>
+            <p class="text-sm text-muted mb-16">4 de 6 secoes completas</p>
+            <div class="progress" style="height:12px;max-width:400px;margin:0 auto">
+              <div class="progress-bar green" style="width:67%"></div>
+            </div>
+            <div style="margin-top:16px">
+              <button class="btn btn-lg btn-success" onclick="openModal('modalGerarRelatorio')">&#128196; Gerar Relatorio Completo</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div><!-- /content -->
+  </div><!-- /main -->
+</div><!-- /app -->
+
+<!-- ===== MODALS ===== -->
+
+<!-- Modal: Novo Produto -->
+<div class="modal-overlay" id="modalNovoProduto">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>Registrar Entrega de Produto</h3>
+      <button class="modal-close" onclick="closeModal('modalNovoProduto')">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label>Produto</label>
+        <select class="form-control">
+          <option>Selecione o produto...</option>
+          <option>P01 - Relatorio Mensal</option>
+          <option>P02 - Apoio ao Planejamento</option>
+          <option>P03 - Gestao de Infraestrutura</option>
+          <option>P04 - Apoio a Fiscalizacao</option>
+          <option>P05 - Controle de Qualidade</option>
+          <option>P06 - Gestao Ambiental</option>
+          <option>P07 - Gestao Social</option>
+        </select>
+      </div>
+      <div class="grid-2">
+        <div class="form-group">
+          <label>Data de Entrega</label>
+          <input type="date" class="form-control">
+        </div>
+        <div class="form-group">
+          <label>Status</label>
+          <select class="form-control">
+            <option>Em Andamento</option>
+            <option>Em Revisao</option>
+            <option>Entregue</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Observacoes</label>
+        <textarea class="form-control" rows="3" placeholder="Descreva observacoes relevantes..."></textarea>
+      </div>
+      <div class="form-group">
+        <label>Anexar Documento</label>
+        <input type="file" class="form-control">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('modalNovoProduto')">Cancelar</button>
+      <button class="btn btn-primary">Salvar Registro</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Nova Reuniao -->
+<div class="modal-overlay" id="modalNovaReuniao">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>Agendar Nova Reuniao</h3>
+      <button class="modal-close" onclick="closeModal('modalNovaReuniao')">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label>Tipo de Reuniao</label>
+        <select class="form-control">
+          <option>Diaria - Execucao</option>
+          <option>Semanal - Produto</option>
+          <option>Mensal - Coordenacao Geral</option>
+          <option>Extraordinaria</option>
+        </select>
+      </div>
+      <div class="grid-2">
+        <div class="form-group">
+          <label>Data</label>
+          <input type="date" class="form-control">
+        </div>
+        <div class="form-group">
+          <label>Horario</label>
+          <input type="time" class="form-control">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Local / Sala</label>
+        <input type="text" class="form-control" placeholder="Ex: Sala Virtual 01">
+      </div>
+      <div class="form-group">
+        <label>Participantes</label>
+        <input type="text" class="form-control" placeholder="Nomes separados por virgula">
+      </div>
+      <div class="form-group">
+        <label>Pauta</label>
+        <textarea class="form-control" rows="3" placeholder="Itens da pauta..."></textarea>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('modalNovaReuniao')">Cancelar</button>
+      <button class="btn btn-primary">Agendar Reuniao</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Novo Colaborador -->
+<div class="modal-overlay" id="modalNovoColaborador">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>Cadastrar Novo Colaborador</h3>
+      <button class="modal-close" onclick="closeModal('modalNovoColaborador')">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="grid-2">
+        <div class="form-group">
+          <label>Nome Completo</label>
+          <input type="text" class="form-control" placeholder="Nome do colaborador">
+        </div>
+        <div class="form-group">
+          <label>CPF</label>
+          <input type="text" class="form-control" placeholder="000.000.000-00">
+        </div>
+      </div>
+      <div class="grid-2">
+        <div class="form-group">
+          <label>Funcao / Cargo</label>
+          <select class="form-control">
+            <option>Selecione...</option>
+            <option>Engenheiro Civil</option>
+            <option>Engenheiro Eletricista</option>
+            <option>Analista Ambiental</option>
+            <option>Tecnico em Estradas</option>
+            <option>Administrativo</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Regime de Trabalho</label>
+          <select class="form-control">
+            <option>Presencial</option>
+            <option>Remoto</option>
+            <option>Hibrido</option>
+          </select>
+        </div>
+      </div>
+      <div class="grid-2">
+        <div class="form-group">
+          <label>Posto de Trabalho</label>
+          <select class="form-control">
+            <option>Posto 01 - Sede</option>
+            <option>Posto 02 - UL Norte</option>
+            <option>Posto 03 - UL Sul</option>
+            <option>Remoto - Home Office</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Salario Base (R$)</label>
+          <input type="number" class="form-control" placeholder="0,00">
+        </div>
+      </div>
+      <div class="alert alert-info" style="margin-top:8px">
+        &#9432; <div>O salario base deve respeitar o piso da categoria e nao ultrapassar o orcamento referencial do posto de trabalho.</div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('modalNovoColaborador')">Cancelar</button>
+      <button class="btn btn-primary">Cadastrar Colaborador</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Gerar Relatorio -->
+<div class="modal-overlay" id="modalGerarRelatorio">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>Gerar Relatorio de Atendimento</h3>
+      <button class="modal-close" onclick="closeModal('modalGerarRelatorio')">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="alert alert-warning mb-20">
+        &#9888; <div><strong>Atencao:</strong> 2 secoes ainda estao incompletas. Deseja gerar o relatorio mesmo assim?</div>
+      </div>
+      <h4 style="font-size:14px;margin-bottom:12px">Secoes do Relatorio:</h4>
+      <div class="checklist-item checked"><input type="checkbox" checked disabled><span>1. Identificacao - Capa, contracapa, indice</span></div>
+      <div class="checklist-item checked"><input type="checkbox" checked disabled><span>2. Resumo de Atividades (parcial)</span></div>
+      <div class="checklist-item checked"><input type="checkbox" checked disabled><span>3. Recursos Mobilizados</span></div>
+      <div class="checklist-item checked"><input type="checkbox" checked disabled><span>4. Gestao de Tratativas</span></div>
+      <div class="checklist-item checked"><input type="checkbox" checked disabled><span>5. Indicadores (IMR)</span></div>
+      <div class="checklist-item"><input type="checkbox" disabled><span>6. Anexos Tecnicos (3 de 5)</span></div>
+      <div class="form-group" style="margin-top:16px">
+        <label>Formato de Saida</label>
+        <select class="form-control">
+          <option>PDF - Relatorio Completo</option>
+          <option>DOCX - Editavel</option>
+          <option>PDF - Resumo Executivo</option>
+        </select>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('modalGerarRelatorio')">Cancelar</button>
+      <button class="btn btn-success">&#128196; Gerar Relatorio</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== JAVASCRIPT ===== -->
+<script>
+// Navigation
+function navigateTo(page) {
+  // Hide all pages
+  document.querySelectorAll('.page-section').forEach(p => p.classList.remove('active'));
+  // Show target
+  document.getElementById('page-' + page).classList.add('active');
+  // Update sidebar
+  document.querySelectorAll('.sidebar-nav a').forEach(a => a.classList.remove('active'));
+  document.querySelector('[data-page="'+page+'"]').classList.add('active');
+  // Update header
+  const titles = {
+    dashboard: 'Painel de Controle',
+    produtos: 'Produtos / Entregaveis',
+    governanca: 'Governanca e Reunioes',
+    equipe: 'Equipe e Mobilizacao',
+    medicao: 'Medicao e Pagamento',
+    imr: 'IMR - Desempenho',
+    documentos: 'Documentos e Malha Rodoviaria',
+    relatorio: 'Relatorio de Atendimento'
+  };
+  document.getElementById('page-title').textContent = titles[page] || page;
+  document.getElementById('breadcrumb').innerHTML = 'SGO &rsaquo; <span>' + (titles[page] || page) + '</span>';
+  // Close sidebar on mobile
+  document.getElementById('sidebar').classList.remove('open');
+}
+
+// Tabs
+function switchTab(tabGroupId, targetId) {
+  const group = document.getElementById(tabGroupId);
+  group.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  event.target.classList.add('active');
+  // Find sibling tab-contents
+  let sibling = group.nextElementSibling;
+  while(sibling && sibling.classList.contains('tab-content')) {
+    sibling.classList.remove('active');
+    sibling = sibling.nextElementSibling;
+  }
+  document.getElementById(targetId).classList.add('active');
+}
+
+// Modals
+function openModal(id) {
+  document.getElementById(id).classList.add('show');
+}
+function closeModal(id) {
+  document.getElementById(id).classList.remove('show');
+}
+// Close modal on overlay click
+document.querySelectorAll('.modal-overlay').forEach(m => {
+  m.addEventListener('click', function(e) {
+    if (e.target === this) this.classList.remove('show');
+  });
+});
+
+// Toggle sidebar (mobile)
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('open');
+}
+
+// Notifications
+function toggleNotif() {
+  document.getElementById('notifPanel').classList.toggle('show');
+}
+// Close notif on click outside
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('.btn-icon') && !e.target.closest('.notif-panel')) {
+    document.getElementById('notifPanel').classList.remove('show');
+  }
+});
+
+// Product filter
+function filterProducts(type, el) {
+  document.querySelectorAll('.pill-nav .pill').forEach(p => p.classList.remove('active'));
+  el.classList.add('active');
+  document.querySelectorAll('.product-card').forEach(c => {
+    if (type === 'all') {
+      c.style.display = '';
+    } else {
+      c.style.display = c.dataset.type === type ? '' : 'none';
+    }
+  });
+  document.querySelectorAll('.prod-section-title').forEach(t => {
+    if (type === 'all') {
+      t.style.display = '';
+    } else {
+      t.style.display = t.classList.contains(type) ? '' : 'none';
+    }
+  });
+}
+
+// Medicao calculator
+function calcMedicao() {
+  const pu = parseFloat(document.getElementById('calcPu').value) || 0;
+  const qc = parseFloat(document.getElementById('calcQc').value) || 0;
+  const imr = parseFloat(document.getElementById('calcImr').value) || 100;
+  const vm = pu * qc * (imr / 100);
+  document.getElementById('calcResult').textContent = 'R$ ' + vm.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+}
+
+// Pill navigation (generic - make pills clickable)
+document.querySelectorAll('.pill-nav').forEach(nav => {
+  nav.querySelectorAll('.pill').forEach(pill => {
+    pill.addEventListener('click', function() {
+      if (!this.onclick) {
+        nav.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
+        this.classList.add('active');
+      }
+    });
+  });
+});
+
+// Checklist interaction
+document.querySelectorAll('.checklist-item input[type="checkbox"]').forEach(cb => {
+  cb.addEventListener('change', function() {
+    if (this.checked) {
+      this.parentElement.classList.add('checked');
+    } else {
+      this.parentElement.classList.remove('checked');
+    }
+  });
+});
+</script>
+</body>
+</html>
